@@ -1,23 +1,13 @@
 {
-  "name": "stytch-nextjs-example",
+  "name": "embodied-astrology",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "node dev",
+    "build": "node build",
   },
   "dependencies": {
-    "@next/font": "13.2.3",
-    "@stytch/nextjs": "^3.0.1",
     "@stytch/vanilla-js": "^0.11.2",
-    "@netlify/plugin-nextjs": "^4.34.0",
-    "eslint": "8.33.0",
-    "eslint-config-next": "13.2.3",
-    "next": "13.1.6",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
     "stytch": "^5.18.1"
   }
 }

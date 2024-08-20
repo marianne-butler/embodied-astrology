@@ -1,2 +1,19 @@
+# Local Netlify folder
+.netlify
+
+# dependencies
+/node_modules
+
+# production
+/build
+
 # misc
 .DS_Store
+/notes
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env
