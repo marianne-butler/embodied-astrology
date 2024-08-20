@@ -26,7 +26,7 @@ exports.handler = async function (event, context) {
       }; 
   } catch (e) {
     return {
-      statusCode: 200,
+      statusCode: 500,
       body: JSON.stringify({"error":e}),
       headers: {
         "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
@@ -41,13 +41,13 @@ exports.handler = async function (event, context) {
 
   // client.users.create(params)
   //   .then(resp => { 
-      return {
-        statusCode: 200,
-        body: JSON.stringify({"result":"ok"}),
-        headers: {
-          "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
-        }, 
-      }; 
+      // return {
+      //   statusCode: 200,
+      //   body: JSON.stringify({"result":"ok"}),
+      //   headers: {
+      //     "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+      //   }, 
+      // }; 
   //   })
   //  .catch(err => { 
   //   return {
