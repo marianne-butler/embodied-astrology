@@ -1,11 +1,11 @@
 const stytch = require('stytch');
 
+const { STYTCH_TEST_PROJECT_ID, STYTCH_TEST_SECRET, STYTCH_TEST_TOKEN } = process.env;
+
 exports.handler = async function (event, context) {
   try {
     const client = new stytch.Client({
-      // env: "test",
-      project_id: 'project-test-1428e3ef-4f31-46d1-bcb8-3906f21a3715',
-      secret: 'secret-test--IMJaaO8tgFRZa2WPtffO4xuQcOv-CqYWPM=',
+      env: "test",
     });
 
     return {
