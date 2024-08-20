@@ -7,7 +7,6 @@
     "build": "node build"
   },
   "dependencies": {
-    "@stytch/vanilla-js": "^0.11.2",
     "stytch": "^5.18.1"
   }
 }
