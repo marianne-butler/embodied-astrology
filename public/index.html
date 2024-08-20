@@ -8,7 +8,8 @@
 			async function test() {
 			    try {
 			        fetch('https://embodied-astrology.netlify.app/.netlify/functions/playground')
-			        .then((res) => res.json().then((result) => result));
+			        .then((res) => res.json()
+			        	.then((result) => console.log(result)));
 			    } catch(err) {}
 			    // console.log(href);
 			}
