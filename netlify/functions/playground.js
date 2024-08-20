@@ -1,4 +1,4 @@
-const stytch = require('stytch');
+const stytch = require('@stytch');
 
 const { STYTCH_TEST_PROJECT_ID, STYTCH_TEST_SECRET, STYTCH_TEST_TOKEN } = process.env;
 
