@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node dev",
-    "build": "node build",
+    "build": "node build"
   },
   "dependencies": {
     "@stytch/vanilla-js": "^0.11.2",
