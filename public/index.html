@@ -3,5 +3,16 @@
 	</head>
 	<body>
 		<h1>Hello world</h1>
+		<button>TEST</button>
+		<script>
+			async function test() {
+			    try {
+			        fetch('https://embodied-astrology.netlify.app/.netlify/functions/playground')
+			        .then((res) => res.json().then((result) => result));
+			    } catch(err) {}
+			    // console.log(href);
+			}
+			document.getElementsByTagName('button').on('click', () => test);
+		</script>
 	</body>
 </html>

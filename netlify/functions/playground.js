@@ -3,9 +3,9 @@ const stytch = require('stytch');
 exports.handler = async function (event, context) {
   try {
     const client = new stytch.Client({
-      env: 'live',
-      project_id: 'project-live-294d69b5-32ae-4470-a64e-4294d30e0ad4',
-      secret: 'secret-live-ryRf7hFoNfsAT3uJRcfyh1vfUBmKk3jeYYg=',
+      env: "test",
+      project_id: 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0',
+      secret: 'secret-test-zgxGcqbRPjKEr_MkhBWag2-KSXvaY1MoCKY=',
     });
 
     return {
