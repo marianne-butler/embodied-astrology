@@ -4,10 +4,13 @@ const { STYTCH_TEST_PROJECT_ID, STYTCH_TEST_SECRET, STYTCH_TEST_TOKEN } = proces
 
 exports.handler = async function (event, context) {
   try {
+
     const client = new stytch.Client({
       project_id: STYTCH_TEST_PROJECT_ID,
       secret: STYTCH_TEST_SECRET,
     });
+
+    console.log(client);
 
 // const params = {
 //   email: "marianne.voidofcourse@gmail.com",
@@ -18,16 +21,8 @@ exports.handler = async function (event, context) {
 //   .catch(err => { console.log(err) });
 
     return {
-        statusCode: 200,
-        body: JSON.stringify({"result":"ok"}),
-        headers: {
-          "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
-        }, 
-      }; 
-  } catch (e) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({"error":e}),
+      statusCode: 200,
+      body: JSON.stringify({"result":"ok"}),
       headers: {
         "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
       }, 
