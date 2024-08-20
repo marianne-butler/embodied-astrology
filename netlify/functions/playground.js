@@ -1,11 +1,30 @@
 const stytch = require('stytch');
 
 exports.handler = async function (event, context) {
-  // const client = new stytch.Client({
-  //   env: "test",
-  //   project_id: 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0',
-  //   secret: 'secret-test-zgxGcqbRPjKEr_MkhBWag2-KSXvaY1MoCKY=',
-  // });
+  try {
+    const client = new stytch.Client({
+      env: "test",
+      project_id: 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0',
+      secret: 'secret-test-zgxGcqbRPjKEr_MkhBWag2-KSXvaY1MoCKY=',
+    });
+
+    return {
+        statusCode: 200,
+        body: JSON.stringify({"result":"ok"}),
+        headers: {
+          "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+        }, 
+      }; 
+  } catch (e) {
+    return {
+      statusCode: 200,
+      body: JSON.stringify({"error":e}),
+      headers: {
+        "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+      }, 
+    }; 
+  }
+  
 
   // const params = {
   //   email: "marianne.voidofcourse@gmail.com",
