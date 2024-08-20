@@ -5,8 +5,17 @@ const { STYTCH_TEST_PROJECT_ID, STYTCH_TEST_SECRET, STYTCH_TEST_TOKEN } = proces
 exports.handler = async function (event, context) {
   try {
     const client = new stytch.Client({
-      env: "test",
+      project_id: STYTCH_TEST_PROJECT_ID,
+      secret: STYTCH_TEST_SECRET,
     });
+
+// const params = {
+//   email: "marianne.voidofcourse@gmail.com",
+// };
+
+// client.magicLinks.email.send(params)
+//   .then(resp => { console.log(resp) })
+//   .catch(err => { console.log(err) });
 
     return {
         statusCode: 200,
