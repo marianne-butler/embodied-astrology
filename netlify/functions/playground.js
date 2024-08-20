@@ -5,7 +5,6 @@ const { STYTCH_TEST_PROJECT_ID, STYTCH_TEST_SECRET, STYTCH_TEST_TOKEN } = proces
 let response, error;
 
 const client = new stytch.Client({
-  env:'TEST',
   project_id: STYTCH_TEST_PROJECT_ID,
   secret: STYTCH_TEST_SECRET,
 });
