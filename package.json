@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "npm run build"
+    "build": "node build.js"
   },
   "dependencies": {}
 }
