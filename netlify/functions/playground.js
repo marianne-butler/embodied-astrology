@@ -6,6 +6,8 @@ id = 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0';
 
 exports.handler = async function (event, context) {
 	let error, response;
+	const {action, user_id, email, token, stytch_token_type} = event.queryStringParameters;
+
 	function composeResponse() {
 		return {
         	statusCode: 200,
@@ -29,24 +31,42 @@ exports.handler = async function (event, context) {
 			env: stytch.envs.test
 		});
 
-		switch (event.queryStringParameters.action) {
+		switch (action) {
 			case "PROFILE":
-				await client.users.get({user_id: event.queryStringParameters.user_id})
+				await client.users.get({user_id: user_id})
+				    .then(resp => response = resp)
+				    .catch(err => error = err);
+	    	    return error == null ? composeResponse() : composeError();
+				break;
+			case "SESSIONS":
+				await client.sessions.get({user_id: user_id})
 				    .then(resp => response = resp)
 				    .catch(err => error = err);
 	    	    return error == null ? composeResponse() : composeError();
 				break;
 			case "MAGIC":
-				await client.magicLinks.email.loginOrCreate({email: event.queryStringParameters.email})
+				await client.magicLinks.email.loginOrCreate({email: email})
 					.then(resp => response = resp)
 				  	.catch(err => error = err);
 				return error == null ? composeResponse() : composeError();
 				break;
 			case "AUTH":
-				await client.magicLinks.authenticate({token: event.queryStringParameters.token})
+				switch (stytch_token_type) {
+				case "magic_links":
+				await client.magicLinks.authenticate({
+						token: token, 
+						session_duration_minutes: 5
+					})
 					.then(resp => response = resp)
 				  	.catch(err => error = err);
 				return error == null ? composeResponse() : composeError();
+				break;
+
+				default:
+					error = "token type not handled";
+					return composeError();
+					break;
+				}
 				break;
 			default:
 				error = "action not handled";

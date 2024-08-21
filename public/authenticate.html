@@ -24,7 +24,7 @@
     tokenType = queryParams.get('stytch_token_type');
 
     if (token && tokenType) {
-      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=AUTH&token=${token}&type=${tokenType}`)
+      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=AUTH&token=${token}&stytch_token_type=${tokenType}`)
         .then((res) => res.json()
         .then(({user}) => console.log(user)));
     }
