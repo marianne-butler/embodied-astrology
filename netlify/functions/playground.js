@@ -5,10 +5,6 @@ secret = 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0',
 id = 'secret-test-zgxGcqbRPjKEr_MkhBWag2-KSXvaY1MoCKY';
 
 exports.handler = async function (event, context) {
-	const params = {
-	  user_id: "user-test-a522bcec-552a-46b3-b476-34f98a164acf",
-	};
-
 	try {
 		const client = new stytch.Client({
 			project_id: id,
@@ -16,13 +12,31 @@ exports.handler = async function (event, context) {
 			env: stytch.envs.test
 		});
 
-		return {
-        	statusCode: 200,
-        	body: JSON.stringify({"result":client}),
-        	headers: {
-          		"Access-Control-Allow-Origin" : "*", 
-        	}, 
-      	};
+		const params = {
+			user_id: "user-test-a522bcec-552a-46b3-b476-34f98a164acf",
+		    trusted_metadata: {
+		        role: "ADMIN"
+		    }
+		}
+		await client.users.update(params)
+		    .then(resp => {
+		        return {
+		        	statusCode: 200,
+		        	body: JSON.stringify({"result":resp}),
+		        	headers: {
+		          		"Access-Control-Allow-Origin" : "*", 
+		        	}, 
+		      	};
+		    })
+		    .catch(err => {
+		        return {
+		        	statusCode: 500,
+		        	body: JSON.stringify({"result":err}),
+		        	headers: {
+		          		"Access-Control-Allow-Origin" : "*", 
+		        	}, 
+		      	};
+		    });
 	}
 	catch (clientErr) {
 		 return {
