@@ -77,13 +77,7 @@ exports.handler = async function (event, context) {
 				break;
 			case "CHART":
 				await fetch('https://astro-api-a4afb1474dd8.herokuapp.com/snapshot?place=macclesfield%20england&year=1983&month=3&day=15&hour=15&minute=35')
-				.then(resp => 
-					client.users.update({
-						user_id: user_id,
-						name: { first_name: "Maz" },
-						trusted_metadata: { "natal": resp}
-					}).then(resp => response = resp)
-				)
+				.then(resp => response = resp)
 			  	.catch(err => error = err);
 
 			  	return error == null ? composeResponse() : composeError();
