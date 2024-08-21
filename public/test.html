@@ -13,15 +13,17 @@
     <link rel="stylesheet" href="css/stytch.css" />
   </head>
   <body>
-    <noscript>
-      The Stytch JavaScript example application requires JavaScript to run.
-    </noscript>
-    <main>Authenticating...</main>
+    <h1>Hello world</h1>
+    <button onclick="test()">TEST</button>
+    <script>
+      async function test() {
+          try {
+              fetch('https://embodied-astrology.netlify.app/.netlify/functions/playground')
+              .then((res) => res.json()
+                .then((result) => console.log(result)));
+          } catch(err) {}
+          // console.log(href);
+      }
+    </script>
   </body>
-  <script
-    type="module"
-    src="https://www.unpkg.com/@stytch/vanilla-js@2.0/dist/index.esm.js"
-  ></script>
-  <script type="module" src="js/app.js"></script>
-  <script type="module" src="js/authenticate.js"></script>
 </html>
