@@ -72,12 +72,14 @@
 
       fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=LOGIN&token=${token}&stytch_token_type=${stytch_token_type}`)
         .then((res) => res.json()
-        .then(({user, session_jwt}) => {
-          console.log(user);
-          console.log(session_jwt);
-          // do you want to store a cookie?
-          setStatus("Save Cookie?");
-        }));
+          .then(({user, session_jwt}) => {
+            console.log(user);
+            console.log(session_jwt);
+            // do you want to store a cookie?
+            setStatus("Save Cookie?");
+          })
+        )
+        .error((err) => setStatus(`${err.error_type} : Request Magic Link`);
     }
   </script>
 </html>
