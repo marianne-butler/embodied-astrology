@@ -10,7 +10,7 @@ exports.handler = async function (event, context) {
 	};
 
 	try {
-		const client = await new stytch.Client({
+		const client = new stytch.Client({
 			project_id: id,
 			secret: secret,
 			env: stytch.envs.test
@@ -24,29 +24,29 @@ exports.handler = async function (event, context) {
         	}, 
       	}; 
 
-	  	// client.users.get(params)
-	    // 	.then(resp => { 
-		//       	console.log(resp);
+	  	await client.users.get(params)
+	    	.then(resp => { 
+		      	console.log(resp);
 
-		//       	return {
-		//         	statusCode: 200,
-		//         	body: JSON.stringify({"result":resp}),
-		//         	headers: {
-		//           		"Access-Control-Allow-Origin" : "*", 
-		//         	}, 
-		//       	}; 
-	    // 	})
-		//    .catch(err => { 
-		//    		console.log(err);
+		      	return {
+		        	statusCode: 200,
+		        	body: JSON.stringify({"result":resp}),
+		        	headers: {
+		          		"Access-Control-Allow-Origin" : "*", 
+		        	}, 
+		      	}; 
+	    	})
+		   .catch(err => { 
+		   		console.log(err);
 
-		// 	    return {
-		// 		    statusCode: 500,
-		// 		    body: JSON.stringify({"error":err}),
-		// 		    headers: {
-		// 		    	"Access-Control-Allow-Origin" : "*",
-		// 		   	}, 
-		// 	   	}; 	
-		// 	});
+			    return {
+				    statusCode: 500,
+				    body: JSON.stringify({"error":err}),
+				    headers: {
+				    	"Access-Control-Allow-Origin" : "*",
+				   	}, 
+			   	}; 	
+			});
 	}
 	catch (clientErr) {
 		console.log(clientErr);
