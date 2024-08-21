@@ -80,7 +80,7 @@ exports.handler = async function (event, context) {
 				await fetch('https://astro-api-a4afb1474dd8.herokuapp.com/snapshot?place=macclesfield%20england&year=1983&month=3&day=15&hour=15&minute=35')
 				.then(resp => natal = resp);
 
-				console.log(astro);
+				console.log(natal);
 
 				await client.users.update({
 					user_id: user_id,
