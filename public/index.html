@@ -20,6 +20,7 @@
       <h1 id="status">Welcome</h1>
       <button onclick="get('action=PROFILE&user_id=user-test-8523a0c4-6d15-4bdf-bcc2-bf39ed14ae45')">PROFILE</button>
       <button onclick="get('action=SESSIONS&user_id=user-test-8523a0c4-6d15-4bdf-bcc2-bf39ed14ae45')">SESSIONS</button>
+      <button onclick="astrology('user-test-8523a0c4-6d15-4bdf-bcc2-bf39ed14ae45')">ASTROLOGY</button>
       <button onclick="login('marianne.voidofcourse@gmail.com')">GET MAGIC LINK</button>
       <button onclick="save(true)">SAVE COOKIE</button>
       <button onclick="save(false)">DONT SAVE COOKIE</button>
@@ -59,6 +60,29 @@
       }
     }
 
+    function handleUserDataResponse(resp) {
+      const {user, session_jwt, error_type} = resp;
+      console.log(resp);
+
+      if (error_type != null) setStatus(`${error_type} : Request Magic Link`);
+      else {
+        const {trusted_metadata} = user;
+        if (trusted_metadata == null) setStatus("Get natal snapshot");
+        else {
+          console.log(trusted_metadata);
+          setStatus("Save Cookie?");
+        }
+        // console.log(session_jwt);
+      }
+    }
+
+    async function astrology(user_id) {
+      setStatus("Getting natal chart");
+
+      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=CHART&user_id=${user_id}`)
+      .then((res) => res.json().then(handleUserDataResponse));
+    }
+
     function setStatus(string) {
       status.innerText = string;
     }
@@ -71,14 +95,7 @@
       setStatus("Authenticating");
 
       fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=LOGIN&token=${token}&stytch_token_type=${stytch_token_type}`)
-        .then((res) => res.json().then(({user, session_jwt, error_type}) => {
-            if (error_type != null) setStatus(`${error_type} : Request Magic Link`);
-            else {
-              console.log(user);
-              console.log(session_jwt);
-              setStatus("Save Cookie?");
-            }
-          }));
+      .then((res) => res.json().then(handleUserDataResponse));
     }
   </script>
 </html>

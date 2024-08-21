@@ -55,21 +55,35 @@ exports.handler = async function (event, context) {
 				break;
 			case "LOGIN":
 				switch (stytch_token_type) {
-				case "magic_links":
-				await client.magicLinks.authenticate({
-						token: token, 
-						session_duration_minutes: 42480
-					})
-					.then(resp => response = resp)
-				  	.catch(err => error = err);
-				return error == null ? composeResponse() : composeError();
-				break;
-
-				default:
-					error = "token type not handled";
-					return composeError();
+					case "magic_links":
+					await client.magicLinks.authenticate({
+							token: token, 
+							session_duration_minutes: 42480
+						})
+						.then(resp => response = resp)
+					  	.catch(err => error = err);
+					return error == null ? composeResponse() : composeError();
 					break;
+
+					default:
+						error = "token type not handled";
+						return composeError();
+						break;
 				}
+				break;
+			case "CHART":
+				await client.users.update({
+					user_id:  user_id,
+					name: {
+        				first_name: "Maz"
+        			}
+					trusted_metadata: {
+						"latLng": 1
+					}
+				})
+				.then(resp => response = resp)
+			  	.catch(err => error = err);
+			  	
 				break;
 			default:
 				error = "action not handled";
