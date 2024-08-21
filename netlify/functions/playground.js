@@ -1,5 +1,4 @@
 const stytch = require('stytch');
-import fetch from 'node-fetch';
 
 const token = 'public-token-test-426746fe-aad7-4abd-8733-3b9a68c375fa',
 secret = 'secret-test-zgxGcqbRPjKEr_MkhBWag2-KSXvaY1MoCKY=',
@@ -74,15 +73,14 @@ exports.handler = async function (event, context) {
 				break;
 			case "CHART":
 				const data = await fetch('https://astro-api-a4afb1474dd8.herokuapp.com/snapshot?place=macclesfield%20england&year=1983&month=3&day=15&hour=15&minute=35');
+				
 				await client.users.update({
 					user_id:  user_id,
 					name: {
         				first_name: "Maz",
         			},
 					trusted_metadata: {
-						"natal": {
-							"latLng": 1,
-						}
+						"natal": data
 					}
 				})
 				.then(resp => response = resp)
