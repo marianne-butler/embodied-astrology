@@ -71,18 +71,14 @@
       setStatus("Authenticating");
 
       fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=LOGIN&token=${token}&stytch_token_type=${stytch_token_type}`)
-        .then((res) => {
-          if (res.status !== 200) setStatus(`${res.error_type} : Request Magic Link`);
-          else {
-            res.json().then(({user, session_jwt}) => {
-                console.log(user);
-                console.log(session_jwt);
-                // do you want to store a cookie?
-                setStatus("Save Cookie?");
-              });
-          }
-        })
-        .catch((err) => setStatus(`${err.error_type} : Request Magic Link`));
+        .then((res) => res.json().then(({user, session_jwt, error_type}) => {
+            if (error_type != null) setStatus(`${error_type} : Request Magic Link`);
+            else {
+              console.log(user);
+              console.log(session_jwt);
+              setStatus("Save Cookie?");
+            }
+          }));
     }
   </script>
 </html>
