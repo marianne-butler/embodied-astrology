@@ -16,34 +16,18 @@ exports.handler = async function (event, context) {
 			env: stytch.envs.test
 		});
 
-	  	await client.users.get(params)
-	    	.then(resp => { 
-		      	console.log(resp);
-
-		      	return {
-		        	statusCode: 200,
-		        	body: JSON.stringify({"result":resp}),
-		        	headers: {
-		          		"Access-Control-Allow-Origin" : "*", 
-		        	}, 
-		      	}; 
-	    	})
-		   .catch(err => { 
-		   		console.log(err);
-
-			    return {
-				    statusCode: 500,
-				    body: JSON.stringify({"error":err}),
-				    headers: {
-				    	"Access-Control-Allow-Origin" : "*",
-				   	}, 
-			   	}; 	
-			});
+		return {
+        	statusCode: 200,
+        	body: JSON.stringify({"result":client}),
+        	headers: {
+          		"Access-Control-Allow-Origin" : "*", 
+        	}, 
+      	};
 	}
 	catch (clientErr) {
 		 return {
 		    statusCode: 500,
-		    body: JSON.stringify({"error": clientErr}),
+		    body: JSON.stringify({"error":clientErr}),
 		    headers: {
 		    	"Access-Control-Allow-Origin" : "*",
 		   	}, 
