@@ -21,8 +21,8 @@
       <!-- <button onclick="get('action=PROFILE&user_id=user-test-8017ffda-19a0-44ef-92fe-d445c9b0d0a6')">PROFILE</button> -->
       <!-- <button onclick="get('action=SESSIONS&user_id=user-test-8017ffda-19a0-44ef-92fe-d445c9b0d0a6')">SESSIONS</button> -->
       <button onclick="login('marianne.voidofcourse@gmail.com')">GET MAGIC LINK</button>
-      <button onclick="cookie(true)">SAVE COOKIE</button>
-      <button onclick="cookie(false)">DONT SAVE COOKIE</button>
+      <button onclick="save(true)">SAVE COOKIE</button>
+      <button onclick="save(false)">DONT SAVE COOKIE</button>
     </main>
   </body>
   <script>
@@ -31,7 +31,7 @@
     token = params.get("token"),
     stytch_token_type = params.get("stytch_token_type");
 
-    async function cookie(save) {
+    async function save(save) {
        setStatus(`Show Profile (cookie=${save ? "yes" : "no"})`);
     }
 
