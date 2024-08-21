@@ -21,10 +21,10 @@ exports.handler = async function (event, context) {
 		await client.users.get(params)
 		    .then(resp => {
 		    	response = resp;
-		    	isError = true;
 		    })
 		    .catch(err => {
 		       	response = err;
+		       	isError = true;
 		    });
 
 	    return {
