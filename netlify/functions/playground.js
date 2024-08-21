@@ -6,7 +6,7 @@ id = 'secret-test-zgxGcqbRPjKEr_MkhBWag2-KSXvaY1MoCKY';
 
 exports.handler = async function (event, context) {
 	const params = {
-		email: "marianne.voidofcourse@gmail.com",
+	  user_id: "user-test-a522bcec-552a-46b3-b476-34f98a164acf",
 	};
 
 	try {
@@ -16,8 +16,11 @@ exports.handler = async function (event, context) {
 			env: stytch.envs.test,
 		});
 
-	  	client.users.create(params)
+
+	  	client.users.get(params)
 	    	.then(resp => { 
+		      	console.log(err);
+
 		      	return {
 		        	statusCode: 200,
 		        	body: JSON.stringify({"result":resp}),
@@ -28,6 +31,7 @@ exports.handler = async function (event, context) {
 	    	})
 		   .catch(err => { 
 		   		console.log(err);
+
 			    return {
 				    statusCode: 500,
 				    body: JSON.stringify({"error":err}),
@@ -37,11 +41,12 @@ exports.handler = async function (event, context) {
 			   	}; 	
 			});
 	}
-	catch (error) {
-		console.log(error);
+	catch (clientErr) {
+		console.log(clientErr);
+
 		 return {
 		    statusCode: 500,
-		    body: JSON.stringify({"error":error}),
+		    body: JSON.stringify({"error":clientErr}),
 		    headers: {
 		    	"Access-Control-Allow-Origin" : "*",
 		   	}, 
