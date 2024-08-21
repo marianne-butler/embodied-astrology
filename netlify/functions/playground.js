@@ -78,12 +78,14 @@ exports.handler = async function (event, context) {
         				first_name: "Maz",
         			},
 					trusted_metadata: {
-						"latLng": 1,
+						"astrology": {
+							"latLng": 1,
+						}
 					}
 				})
 				.then(resp => response = resp)
 			  	.catch(err => error = err);
-			  	
+
 			  	return error == null ? composeResponse() : composeError();
 			  	
 				break;
