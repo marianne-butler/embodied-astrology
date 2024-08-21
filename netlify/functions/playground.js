@@ -13,7 +13,7 @@ exports.handler = async function (event, context) {
 
 		console.log(jwt);
 
-		if (jwt) head["set-Cookie"] = `jwt=${jwt}; secure; httpOnly; sameSite=Lax`
+		// if (jwt) head["set-Cookie"] = `jwt=${jwt}; secure; httpOnly; sameSite=Lax`
 
 		return {
         	statusCode: 200,
