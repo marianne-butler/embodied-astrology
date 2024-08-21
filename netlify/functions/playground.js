@@ -6,39 +6,50 @@ id = 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0';
 
 exports.handler = async function (event, context) {
 	try {
+		let isError, response;
+
 		const client = new stytch.Client({
 			project_id: id,
 			secret: secret,
 			env: stytch.envs.test
 		});
 
-		const params = {
-			user_id: "user-test-a522bcec-552a-46b3-b476-34f98a164acf",
+		switch (event.queryStringParameters.action) {
+			case "GET_USER":
+				await client.users.get({user_id: event.queryStringParameters.user_id})
+				    .then(resp => {
+				    	response = resp;
+				    })
+				    .catch(err => {
+				    	response = err; 
+				    	isError = true;
+				    });
+
+	    	    return {
+	            	statusCode: isError ? 500 : 200,
+	            	body: JSON.stringify(response),
+	            	headers: {
+	              		"Access-Control-Allow-Origin" : "*", 
+	            	}, 
+	          	};
+
+				break;
+			
+			default: 
+			    return {
+		        	statusCode: 500,
+		        	body: JSON.stringify({"error": "action not handled"}),
+		        	headers: {
+		          		"Access-Control-Allow-Origin" : "*", 
+		        	}, 
+		      	};
+				break;
 		}
-
-		let response, isError = false;
-
-		await client.users.get(params)
-		    .then(resp => {
-		    	response = resp;
-		    })
-		    .catch(err => {
-		       	response = err;
-		       	isError = true;
-		    });
-
-	    return {
-        	statusCode: isError ? 500 : 200,
-        	body: JSON.stringify({"result":response}),
-        	headers: {
-          		"Access-Control-Allow-Origin" : "*", 
-        	}, 
-      	};
 	}
 	catch (clientErr) {
 		 return {
 		    statusCode: 500,
-		    body: JSON.stringify({"error":clientErr}),
+		    body: JSON.stringify({"error": clientErr}),
 		    headers: {
 		    	"Access-Control-Allow-Origin" : "*",
 		   	}, 
