@@ -1,15 +1,14 @@
 const stytch = require('stytch');
 
 const token = 'public-token-test-426746fe-aad7-4abd-8733-3b9a68c375fa',
-sectret = '',
-id = '';
+sectret = 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0',
+id = 'secret-test-zgxGcqbRPjKEr_MkhBWag2-KSXvaY1MoCKY';
 
 exports.handler = async function (event, context) {
   try {
     const client = new stytch.Client({
-      env: "test",
-      project_id: 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0',
-      secret: 'secret-test-zgxGcqbRPjKEr_MkhBWag2-KSXvaY1MoCKY',
+      project_id: id,
+      secret: secret,
     });
 
     return {
