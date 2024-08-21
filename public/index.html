@@ -27,7 +27,7 @@
   </body>
   <script>
     const status = document.querySelector('#status'),
-    {token, tokenType} = new URLSearchParams(window.location.search);
+    {token, stytch_token_type} = new URLSearchParams(window.location.search);
 
     function setStatus(string) {
        status.innerText = string;
@@ -36,7 +36,7 @@
     if (token && tokenType) {
       setStatus("Authenticating");
 
-      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=LOGIN&token=${token}&stytch_token_type=${tokenType}`)
+      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=LOGIN&token=${token}&stytch_token_type=${stytch_token_type}`)
         .then((res) => res.json()
         .then(({user, session_jwt}) => {
           console.log(user);
