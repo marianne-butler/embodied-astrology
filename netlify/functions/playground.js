@@ -18,6 +18,8 @@ exports.handler = async function (event, context) {
 		        role: "ADMIN"
 		    }
 		}
+		console.log('awaiting');
+
 		await client.users.update(params)
 		    .then(resp => {
 		    	console.log(resp);
@@ -39,6 +41,8 @@ exports.handler = async function (event, context) {
 		        	}, 
 		      	};
 		    });
+
+		console.log("nothing");
 	}
 	catch (clientErr) {
 		 return {
