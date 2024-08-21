@@ -8,11 +8,17 @@ exports.handler = async function (event, context) {
 	let error, response;
 	const {action, user_id, email, token, stytch_token_type} = event.queryStringParameters;
 
-	function composeResponse() {
+	function composeResponse(jwt) {
+		const head = { "Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app"}
+
+		console.log(jwt);
+
+		if (jwt) head["set-Cookie"] = `jwt=${jwt}; secure; httpOnly; sameSite=Lax`
+
 		return {
         	statusCode: 200,
         	body: JSON.stringify(response),
-        	headers: { "Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app" }
+        	headers: head
       	}
 	}
 
@@ -59,7 +65,7 @@ exports.handler = async function (event, context) {
 					})
 					.then(resp => response = resp)
 				  	.catch(err => error = err);
-				return error == null ? composeResponse() : composeError();
+				return error == null ? composeResponse(resp.session_jwt) : composeError();
 				break;
 
 				default:
