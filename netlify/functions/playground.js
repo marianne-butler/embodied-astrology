@@ -8,11 +8,12 @@ exports.handler = async function (event, context) {
 	const params = {
 		email: "marianne.voidofcourse@gmail.com",
 	};
-	
+
 	try {
 		const client = new stytch.Client({
 			project_id: id,
 			secret: secret,
+			env: stytch.envs.test,
 		});
 
 	  	client.users.create(params)
