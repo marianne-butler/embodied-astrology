@@ -20,6 +20,7 @@ exports.handler = async function (event, context) {
 		}
 		await client.users.update(params)
 		    .then(resp => {
+		    	console.log(resp);
 		        return {
 		        	statusCode: 200,
 		        	body: JSON.stringify({"result":resp}),
@@ -29,6 +30,7 @@ exports.handler = async function (event, context) {
 		      	};
 		    })
 		    .catch(err => {
+		        console.log(err);
 		        return {
 		        	statusCode: 500,
 		        	body: JSON.stringify({"result":err}),
