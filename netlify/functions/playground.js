@@ -10,6 +10,8 @@ const client = new stytch.Client({
 });
 
 exports.handler = async function (event, context) {
+	console.log('handler');
+
 	const params = {
 		email: "marianne.voidofcourse@gmail.com",
 	};
@@ -25,12 +27,13 @@ exports.handler = async function (event, context) {
 	      	}; 
     	})
 	   .catch(err => { 
-		    return {
-			    statusCode: 500,
-			    body: JSON.stringify({"error":err}),
-			    headers: {
-			    	"Access-Control-Allow-Origin" : "*",
-			   	}, 
-		   	}; 	
+	   	console.log(err);
+		    // return {
+			//     statusCode: 500,
+			//     body: JSON.stringify({"error":err}),
+			//     headers: {
+			//     	"Access-Control-Allow-Origin" : "*",
+			//    	}, 
+		   	// }; 	
 		});
 };
