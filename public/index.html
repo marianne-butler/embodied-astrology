@@ -18,15 +18,17 @@
     </noscript>
     <main>
       <h1 id="status">Welcome</h1>
-      <button onclick="get('action=PROFILE&user_id=user-test-7fc8cae5-7bf3-4abd-a575-070e5ca0b136')">PROFILE</button>
-      <button onclick="get('action=SESSIONS&user_id=user-test-7fc8cae5-7bf3-4abd-a575-070e5ca0b136')">SESSIONS</button>
-      <button onclick="astrology('user-test-7fc8cae5-7bf3-4abd-a575-070e5ca0b136')">ASTROLOGY</button>
+      <button onclick="get('action=PROFILE')">PROFILE</button>
+      <button onclick="get('action=SESSION')">SESSIONS</button>
+      <button onclick="astrology()">ASTROLOGY</button>
       <button onclick="login('marianne.voidofcourse@gmail.com')">GET MAGIC LINK</button>
       <button onclick="save(true)">SAVE COOKIE</button>
       <button onclick="save(false)">DONT SAVE COOKIE</button>
     </main>
   </body>
   <script>
+    let user_id;
+
     const status = document.querySelector('#status'),
     params = new URLSearchParams(window.location.search),
     token = params.get("token"),
@@ -52,7 +54,7 @@
 
     async function get(params) {
       try {
-          fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?${params}`)
+          fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?user_id=${user_id}&${params}`)
             .then((res) => res.json()
               .then((result) => console.log(result)));
       } catch(err) {
@@ -66,6 +68,7 @@
 
       if (error_type != null) setStatus(`${error_type} : Request Magic Link`);
       else {
+        user_id = user.user_id;
         const {natal} = user.trusted_metadata;
         const {first_name} = user.name;
         if (natal == null) setStatus("Get natal snapshot");
@@ -77,7 +80,7 @@
       }
     }
 
-    async function astrology(user_id) {
+    async function astrology() {
       setStatus("Getting natal chart");
 
       fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=CHART&user_id=${user_id}`)
