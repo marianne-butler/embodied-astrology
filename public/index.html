@@ -32,8 +32,6 @@
     stytch_token_type = params.get("stytch_token_type");
 
     async function save(save) {
-      Set-Cookie: jwt=OUR_TOKEN_CONTENT; secure; httpOnly; sameSite=Lax;
-
        setStatus(`Show Profile (cookie=${save ? "yes" : "no"})`);
     }
 
