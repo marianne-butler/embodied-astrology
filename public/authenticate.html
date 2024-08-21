@@ -18,10 +18,19 @@
     </noscript>
     <main>Authenticating...</main>
   </body>
-  <script
-    type="module"
-    src="https://www.unpkg.com/@stytch/vanilla-js@2.0/dist/index.esm.js"
+  <script>
+    const queryParams = new URLSearchParams(window.location.search),
+    token = queryParams.get('token'),
+    tokenType = queryParams.get('stytch_token_type');
+
+    if (token && tokenType) {
+      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action="AUTH&token=${token}&type=${tokenType}`)
+        .then((res) => res.json()
+        .then((result) => console.log(result)));
+    }
+    else {
+      console.log("no token");
+    }
   ></script>
-  <!-- <script type="module" src="js/app.js"></script> -->
   <script type="module" src="js/authenticate.js"></script>
 </html>

@@ -42,6 +42,12 @@ exports.handler = async function (event, context) {
 				  	.catch(err => error = err);
 				return error == null ? composeResponse() : composeError();
 				break;
+			case "AUTH":
+				await client.magicLinks.authenticate({token: event.queryStringParameters.token})
+					.then(resp => response = resp)
+				  	.catch(err => error = err);
+				return error == null ? composeResponse() : composeError();
+				break;
 			default:
 				error = "action not handled";
 			    return composeError();
