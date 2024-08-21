@@ -84,6 +84,8 @@ exports.handler = async function (event, context) {
 				.then(resp => response = resp)
 			  	.catch(err => error = err);
 			  	
+			  	return error == null ? composeResponse() : composeError();
+			  	
 				break;
 			default:
 				error = "action not handled";
