@@ -16,17 +16,24 @@
     <noscript>
       The Stytch JavaScript example application requires JavaScript to run.
     </noscript>
-    <main>
-      <div class="container">
-        <div id="stytch-sdk"></div>
-      </div>
-    </main>
+    <main>Authenticating...</main>
   </body>
-  <!-- Use unpkg to pull the most current SDK version without breaking changes (v2.0.X) -->
-  <script
-    type="module"
-    src="https://www.unpkg.com/@stytch/vanilla-js@2.0/dist/index.esm.js"
-  ></script>
-  <script type="module" src="js/app.js"></script>
-  <script type="module" src="js/login.js"></script>
+  <script>
+    const queryParams = new URLSearchParams(window.location.search),
+    token = queryParams.get('token'),
+    tokenType = queryParams.get('stytch_token_type');
+
+    if (token && tokenType) {
+      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=LOGIN&token=${token}&stytch_token_type=${tokenType}`)
+        .then((res) => res.json()
+        .then(({user, session_jwt}) => {
+          console.log(user);
+          console.log(session_jwt);
+          // do you want to store a cookie?
+        }));
+    }
+    else {
+      console.log("no token");
+    }
+  </script>
 </html>
