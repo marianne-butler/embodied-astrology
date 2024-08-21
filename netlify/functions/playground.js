@@ -50,12 +50,12 @@ exports.handler = async function (event, context) {
 				  	.catch(err => error = err);
 				return error == null ? composeResponse() : composeError();
 				break;
-			case "AUTH":
+			case "LOGIN":
 				switch (stytch_token_type) {
 				case "magic_links":
 				await client.magicLinks.authenticate({
 						token: token, 
-						session_duration_minutes: 5
+						session_duration_minutes: 42480
 					})
 					.then(resp => response = resp)
 				  	.catch(err => error = err);
