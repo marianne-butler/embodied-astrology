@@ -29,13 +29,15 @@
     const status = document.querySelector('#status'),
     {token, stytch_token_type} = new URLSearchParams(window.location.search);
 
-    console.log(token, stytch_token_type);
-
     function setStatus(string) {
        status.innerText = string;
     }
 
-    if (token && tokenType) {
+    if (token  == null || stytch_token_type == null) {
+      // first look for cookie
+      setStatus("Request Magic Link");
+    }
+    else {
       setStatus("Authenticating");
 
       fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=LOGIN&token=${token}&stytch_token_type=${stytch_token_type}`)
@@ -47,12 +49,8 @@
           setStatus("Save Cookie?");
         }));
     }
-    else {
-      // first look for cookie
-      setStatus("Request Magic Link");
-    }
 
-    function cookie(save) {
+    async function cookie(save) {
        setStatus(`Show Profile (cookie=${save ? "yes" : "no"})`);
     }
 
