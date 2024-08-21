@@ -16,24 +16,66 @@
     <noscript>
       The Stytch JavaScript example application requires JavaScript to run.
     </noscript>
-    <main>Authenticating...</main>
+    <main>
+      <h1 id="status">Welcome</h1>
+      <!-- <button onclick="get('action=PROFILE&user_id=user-test-8017ffda-19a0-44ef-92fe-d445c9b0d0a6')">PROFILE</button> -->
+      <!-- <button onclick="get('action=SESSIONS&user_id=user-test-8017ffda-19a0-44ef-92fe-d445c9b0d0a6')">SESSIONS</button> -->
+      <button onclick="login('marianne.voidofcourse@gmail.com')">GET MAGIC LINK</button>
+      <button onclick="cookie(true)">SAVE COOKIE</button>
+      <button onclick="cookie(false)">DONT SAVE COOKIE</button>
+    </main>
   </body>
   <script>
-    const queryParams = new URLSearchParams(window.location.search),
-    token = queryParams.get('token'),
-    tokenType = queryParams.get('stytch_token_type');
+    const status = document.querySelector('#status'),
+    {token, tokenType} = new URLSearchParams(window.location.search);
+
+    function setStatus(string) {
+       status.innerText = string;
+    }
 
     if (token && tokenType) {
+      setStatus("Authenticating");
+
       fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=LOGIN&token=${token}&stytch_token_type=${tokenType}`)
         .then((res) => res.json()
         .then(({user, session_jwt}) => {
           console.log(user);
           console.log(session_jwt);
           // do you want to store a cookie?
+          setStatus("Save Cookie?");
         }));
     }
     else {
-      console.log("no token");
+      // first look for cookie
+      setStatus("Request Magic Link");
+    }
+
+    function cookie(save) {
+       setStatus(`Show Profile (cookie=${save ? "yes" : "no"})`);
+    }
+
+    async function login(email) {
+      try {
+            fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=MAGIC&email=${email}`)
+              .then((res) => res.json()
+                .then((result) => {
+                  setStatus("Check your email!")
+                  console.log(result);
+                }));
+        } catch(err) {
+          console.log(err);
+          setStatus("Something's not right")
+        }
+    }
+
+    async function get(params) {
+        try {
+            fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?${params}`)
+              .then((res) => res.json()
+                .then((result) => console.log(result)));
+        } catch(err) {
+          console.log(err);
+        }
     }
   </script>
 </html>
