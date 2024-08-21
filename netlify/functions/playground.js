@@ -16,6 +16,7 @@ exports.handler = async function (event, context) {
 			env: stytch.envs.test
 		});
 
+		console.log(client);
 
 	  	client.users.get(params)
 	    	.then(resp => { 
