@@ -12,7 +12,7 @@ exports.handler = async function (event, context) {
 		return {
         	statusCode: 200,
         	body: JSON.stringify(response),
-        	headers: { "Access-Control-Allow-Origin" : "*" }
+        	headers: { "Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app" }
       	}
 	}
 
@@ -20,7 +20,7 @@ exports.handler = async function (event, context) {
 		return {
         	statusCode: 500,
         	body: JSON.stringify(error),
-        	headers: { "Access-Control-Allow-Origin" : "*" }
+        	headers: { "Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app" }
       	}
 	}
 
