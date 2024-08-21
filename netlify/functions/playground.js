@@ -78,6 +78,8 @@ exports.handler = async function (event, context) {
 			case "CHART":
 				const astro = await fetch('https://astro-api-a4afb1474dd8.herokuapp.com/snapshot?place=macclesfield%20england&year=1983&month=3&day=15&hour=15&minute=35');
 
+				console.log(astro);
+
 				await client.users.update({
 					user_id: user_id,
 					name: { first_name: "Maz" },
