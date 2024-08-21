@@ -75,10 +75,10 @@ exports.handler = async function (event, context) {
 				await client.users.update({
 					user_id:  user_id,
 					name: {
-        				first_name: "Maz"
-        			}
+        				first_name: "Maz",
+        			},
 					trusted_metadata: {
-						"latLng": 1
+						"latLng": 1,
 					}
 				})
 				.then(resp => response = resp)
