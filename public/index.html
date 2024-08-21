@@ -18,8 +18,8 @@
     </noscript>
     <main>
       <h1 id="status">Welcome</h1>
-      <!-- <button onclick="get('action=PROFILE&user_id=user-test-8017ffda-19a0-44ef-92fe-d445c9b0d0a6')">PROFILE</button> -->
-      <!-- <button onclick="get('action=SESSIONS&user_id=user-test-8017ffda-19a0-44ef-92fe-d445c9b0d0a6')">SESSIONS</button> -->
+      <button onclick="get('action=PROFILE&user_id=user-test-8017ffda-19a0-44ef-92fe-d445c9b0d0a6')">PROFILE</button>
+      <button onclick="get('action=SESSIONS&user_id=user-test-8017ffda-19a0-44ef-92fe-d445c9b0d0a6')">SESSIONS</button>
       <button onclick="login('marianne.voidofcourse@gmail.com')">GET MAGIC LINK</button>
       <button onclick="save(true)">SAVE COOKIE</button>
       <button onclick="save(false)">DONT SAVE COOKIE</button>
@@ -32,6 +32,8 @@
     stytch_token_type = params.get("stytch_token_type");
 
     async function save(save) {
+      Set-Cookie: jwt=OUR_TOKEN_CONTENT; secure; httpOnly; sameSite=Lax;
+
        setStatus(`Show Profile (cookie=${save ? "yes" : "no"})`);
     }
 
@@ -50,17 +52,17 @@
     }
 
     async function get(params) {
-        try {
-            fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?${params}`)
-              .then((res) => res.json()
-                .then((result) => console.log(result)));
-        } catch(err) {
-          console.log(err);
-        }
+      try {
+          fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?${params}`)
+            .then((res) => res.json()
+              .then((result) => console.log(result)));
+      } catch(err) {
+        console.log(err);
+      }
     }
 
     function setStatus(string) {
-       status.innerText = string;
+      status.innerText = string;
     }
 
     if (token == null || stytch_token_type == null) {
