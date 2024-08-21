@@ -28,9 +28,7 @@ exports.handler = async function (event, context) {
 	    	    return {
 	            	statusCode: isError ? 500 : 200,
 	            	body: JSON.stringify(response),
-	            	headers: {
-	              		"Access-Control-Allow-Origin" : "*", 
-	            	}, 
+	            	headers: { "Access-Control-Allow-Origin" : "*" }
 	          	};
 
 				break;
@@ -39,9 +37,7 @@ exports.handler = async function (event, context) {
 			    return {
 		        	statusCode: 500,
 		        	body: JSON.stringify({"error": "action not handled"}),
-		        	headers: {
-		          		"Access-Control-Allow-Origin" : "*", 
-		        	}, 
+		        	headers: { "Access-Control-Allow-Origin" : "*" }
 		      	};
 				break;
 		}

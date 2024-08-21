@@ -14,15 +14,16 @@
   </head>
   <body>
     <h1>Hello world</h1>
-    <button onclick="test()">TEST</button>
+    <button onclick="test('action=GET_USER&user_id=user-test-a522bcec-552a-46b3-b476-34f98a164acf')">GET USER</button>
     <script>
-      async function test() {
+      async function test(params) {
           try {
-              fetch('https://embodied-astrology.netlify.app/.netlify/functions/playground')
-              .then((res) => res.json()
-                .then((result) => console.log(result)));
-          } catch(err) {}
-          // console.log(href);
+              fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?${params}`)
+                .then((res) => res.json()
+                  .then((result) => console.log(result)));
+          } catch(err) {
+            console.log(err);
+          }
       }
     </script>
   </body>
