@@ -14,32 +14,26 @@ exports.handler = async function (event, context) {
 
 		const params = {
 			user_id: "user-test-a522bcec-552a-46b3-b476-34f98a164acf",
-		    trusted_metadata: {
-		        role: "ADMIN"
-		    }
 		}
 
-		client.users.update(params)
+		let response, isError = false;
+
+		await client.users.get(params)
 		    .then(resp => {
-		    	console.log(resp);
-		        return {
-		        	statusCode: 200,
-		        	body: JSON.stringify({"result":resp}),
-		        	headers: {
-		          		"Access-Control-Allow-Origin" : "*", 
-		        	}, 
-		      	};
+		    	response = resp;
+		    	isError = true;
 		    })
 		    .catch(err => {
-		        console.log(err);
-		        return {
-		        	statusCode: 500,
-		        	body: JSON.stringify({"result":err}),
-		        	headers: {
-		          		"Access-Control-Allow-Origin" : "*", 
-		        	}, 
-		      	};
+		       	response = err;
 		    });
+
+	    return {
+        	statusCode: isError ? 500 : 200,
+        	body: JSON.stringify({"result":response}),
+        	headers: {
+          		"Access-Control-Allow-Origin" : "*", 
+        	}, 
+      	};
 	}
 	catch (clientErr) {
 		 return {
