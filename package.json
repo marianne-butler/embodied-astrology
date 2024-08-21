@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@netlify/functions": "^2.3.0",
-    "stytch": "^11.4.1"
+    "stytch": "^11.4.1",
+    "node-fetch": "^3.3.2"
   }
 }
