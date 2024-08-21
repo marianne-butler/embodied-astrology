@@ -27,13 +27,17 @@
   </body>
   <script>
     const status = document.querySelector('#status'),
-    {token, stytch_token_type} = new URLSearchParams(window.location.search);
+    params = new URLSearchParams(window.location.search),
+    token = params.get("token"),
+    stytch_token_type = params.get("stytch_token_type");
 
     function setStatus(string) {
        status.innerText = string;
     }
 
-    if (token  == null || stytch_token_type == null) {
+    console.log()
+
+    if (token == null || stytch_token_type == null) {
       // first look for cookie
       setStatus("Request Magic Link");
     }
