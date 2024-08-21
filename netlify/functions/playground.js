@@ -27,13 +27,13 @@ exports.handler = async function (event, context) {
 	      	}; 
     	})
 	   .catch(err => { 
-	   	console.log(err);
-		    // return {
-			//     statusCode: 500,
-			//     body: JSON.stringify({"error":err}),
-			//     headers: {
-			//     	"Access-Control-Allow-Origin" : "*",
-			//    	}, 
-		   	// }; 	
+	   		console.log(err);
+		    return {
+			    statusCode: 500,
+			    body: JSON.stringify({"error":err}),
+			    headers: {
+			    	"Access-Control-Allow-Origin" : "*",
+			   	}, 
+		   	}; 	
 		});
 };
