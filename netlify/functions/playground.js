@@ -20,7 +20,7 @@ exports.handler = async function (event, context) {
 
 	  	client.users.get(params)
 	    	.then(resp => { 
-		      	console.log(err);
+		      	console.log(resp);
 
 		      	return {
 		        	statusCode: 200,
