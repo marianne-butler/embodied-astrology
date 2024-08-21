@@ -29,6 +29,8 @@
     const status = document.querySelector('#status'),
     {token, stytch_token_type} = new URLSearchParams(window.location.search);
 
+    console.log(token, stytch_token_type);
+
     function setStatus(string) {
        status.innerText = string;
     }
