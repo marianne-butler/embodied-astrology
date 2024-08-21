@@ -66,11 +66,12 @@
 
       if (error_type != null) setStatus(`${error_type} : Request Magic Link`);
       else {
-        const {astrology} = user.trusted_metadata;
-        if (astrology == null) setStatus("Get natal snapshot");
+        const {natal} = user.trusted_metadata;
+        const {first_name} = user.name;
+        if (natal == null) setStatus("Get natal snapshot");
         else {
           console.log(astrology);
-          setStatus("Save Cookie?");
+          setStatus(`Hi ${first_name}! Save Cookie?`);
         }
         // console.log(session_jwt);
       }
