@@ -13,7 +13,7 @@ const styles = {
   },
 };
 
-const REDIRECT_URL = 'https://embodied-astrology.netlify.app/authenticate';
+const REDIRECT_URL = 'https://embodied-astrology.netlify.app/';
 const config = {
   products: [Products.emailMagicLinks],
   emailMagicLinksOptions: {
