@@ -6,8 +6,8 @@
     "build": "node build.js"
   },
   "dependencies": {
-    "@netlify/functions": "*",
-    "stytch": "*",
-    "node-fetch": "*",
+    "@netlify/functions": "^2.3.0",
+    "stytch": "^11.4.1",
+    "node-fetch": "^3.3.2"
   }
 }
