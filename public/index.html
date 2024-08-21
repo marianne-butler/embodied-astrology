@@ -31,29 +31,6 @@
     token = params.get("token"),
     stytch_token_type = params.get("stytch_token_type");
 
-    function setStatus(string) {
-       status.innerText = string;
-    }
-
-    console.log()
-
-    if (token == null || stytch_token_type == null) {
-      // first look for cookie
-      setStatus("Request Magic Link");
-    }
-    else {
-      setStatus("Authenticating");
-
-      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=LOGIN&token=${token}&stytch_token_type=${stytch_token_type}`)
-        .then((res) => res.json()
-        .then(({user, session_jwt}) => {
-          console.log(user);
-          console.log(session_jwt);
-          // do you want to store a cookie?
-          setStatus("Save Cookie?");
-        }));
-    }
-
     async function cookie(save) {
        setStatus(`Show Profile (cookie=${save ? "yes" : "no"})`);
     }
@@ -80,6 +57,27 @@
         } catch(err) {
           console.log(err);
         }
+    }
+
+    function setStatus(string) {
+       status.innerText = string;
+    }
+
+    if (token == null || stytch_token_type == null) {
+      // first look for cookie
+      setStatus("Request Magic Link");
+    }
+    else {
+      setStatus("Authenticating");
+
+      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=LOGIN&token=${token}&stytch_token_type=${stytch_token_type}`)
+        .then((res) => res.json()
+        .then(({user, session_jwt}) => {
+          console.log(user);
+          console.log(session_jwt);
+          // do you want to store a cookie?
+          setStatus("Save Cookie?");
+        }));
     }
   </script>
 </html>
