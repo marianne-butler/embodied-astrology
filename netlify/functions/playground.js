@@ -13,7 +13,7 @@ exports.handler = async function (event, context) {
 		const client = new stytch.Client({
 			project_id: id,
 			secret: secret,
-			env: stytch.envs.test,
+			env: stytch.envs.test
 		});
 
 
@@ -46,7 +46,7 @@ exports.handler = async function (event, context) {
 
 		 return {
 		    statusCode: 500,
-		    body: JSON.stringify({"error":clientErr}),
+		    body: JSON.stringify({"error":"clientErr"}),
 		    headers: {
 		    	"Access-Control-Allow-Origin" : "*",
 		   	}, 
