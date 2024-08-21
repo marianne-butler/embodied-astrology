@@ -10,7 +10,7 @@ exports.handler = async function (event, context) {
 	};
 
 	try {
-		const client = new stytch.Client({
+		await const client = new stytch.Client({
 			project_id: id,
 			secret: secret,
 			env: stytch.envs.test
