@@ -1,6 +1,5 @@
 const stytch = require('stytch');
-
-// import {fetch} from 'node-fetch';
+import fetch from 'node-fetch';
 
 const token = 'public-token-test-426746fe-aad7-4abd-8733-3b9a68c375fa',
 secret = 'secret-test-zgxGcqbRPjKEr_MkhBWag2-KSXvaY1MoCKY=',
