@@ -12,15 +12,17 @@ exports.handler = async function (event, context) {
 
 	function composeResponse() {
 		const jwt = response.session_jwt;
-		
+
 		return {
         	statusCode: 200,
         	body: JSON.stringify(response),
         	headers: jwt == null ? { 
         		"Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app",
+        		"Set-Cookie": "cookie_name2=o;expires:0"
         	} : { 
         		"Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app",
-        		"Set-Cookie": `session_jwt=${jwt};SameSite=Strict;secure;HttpOnly`
+        		"Set-Cookie": `session_jwt=${jwt};SameSite=Strict;secure;HttpOnly`,
+        		"Set-Cookie": "cookie_name2=o;expires:0"
         	}
       	}
 	}
