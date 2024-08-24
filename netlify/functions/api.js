@@ -6,6 +6,7 @@ id = 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0';
 
 exports.handler = async function (event, context) {
 	let error, response;
+	console.log(event.headers.cookie);
 	const cookies = event.headers.cookie.split(";");
 	console.log(cookies);
 
