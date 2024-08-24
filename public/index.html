@@ -16,10 +16,7 @@
     <noscript>Embodied Astrology requires JavaScript to run.</noscript>
     <main>
       <h1 id="status">Welcome</h1>
-      <button onclick="get('action=PROFILE')">PROFILE</button>
-      <button onclick="get('action=SESSIONS')">SESSIONS</button>
-      <button onclick="astrology()">ASTROLOGY</button>
-      <button onclick="login('marianne.voidofcourse@gmail.com')">GET MAGIC LINK</button>
+      <button onclick="magic('marianne.voidofcourse@gmail.com')">GET MAGIC LINK</button>
       <button onclick="profile()">SHOW PROFILE</button>
     </main>
   </body>
@@ -33,7 +30,7 @@
     stytch_token_type = params.get("stytch_token_type");
 
 
-    async function login() {
+    async function magic() {
       try {
             fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=MAGIC&email=${email}`)
               .then((res) => res.json()
@@ -47,14 +44,11 @@
         }
     }
 
-    async function get(params) {
-      try {
-          fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?user_id=${user_id}&${params}`)
-            .then((res) => res.json()
-              .then((result) => console.log(result)));
-      } catch(err) {
-        console.log(err);
-      }
+    async function astrology() {
+      setStatus("Getting natal chart");
+
+      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=CHART&user_id=${user_id}`)
+      .then((res) => res.json().then(handleresponse));
     }
 
     function handleresponse(resp) {
@@ -66,16 +60,9 @@
 
         const {natal} = user.trusted_metadata;
         const {first_name} = user.name;
-        if (natal == null) setStatus("Get natal snapshot");
+        if (natal == null) astrology();
         else setStatus(`Hi ${first_name}!`);
       }
-    }
-
-    async function astrology() {
-      setStatus("Getting natal chart");
-
-      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=CHART&user_id=${user_id}`)
-      .then((res) => res.json().then(handleresponse));
     }
 
     function setStatus(string) {
