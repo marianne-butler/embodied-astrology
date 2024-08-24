@@ -6,7 +6,10 @@ id = 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0';
 
 exports.handler = async function (event, context) {
 	let error, response;
+	console.log("context");
 	console.log(context);
+	console.log("event");
+	console.log(event);
 	const {action, session_jwt, user_id, email, token, stytch_token_type} = event.queryStringParameters;
 
 	async function getAstrochart() {
