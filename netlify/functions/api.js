@@ -71,7 +71,7 @@ exports.handler = async function (event, context) {
 				break;
 			case "AUTH":
 				if (session_jwt == null) {
-					error = "session_jwt is null";
+					error = {"error_type": "session_jwt_null"};
 					return composeError();
 				}
 				else {
