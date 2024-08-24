@@ -95,7 +95,7 @@
     if (token == null || stytch_token_type == null) {
       // first look for cookie
       cookies = document.cookie;
-      console.log(cookies);
+      console.log(cookies.split(":"));
 
       setStatus("Request Magic Link");
     }
