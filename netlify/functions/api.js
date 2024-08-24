@@ -6,9 +6,10 @@ id = 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0';
 
 exports.handler = async function (event, context) {
 	let error, response;
-	console.log("COOKIE");
-	console.log(event.headers.cookie);
-	const {action, session_jwt, user_id, email, token, stytch_token_type} = event.queryStringParameters;
+	const cookies = event.headers.cookie.split(";");
+	console.log(cookies);
+
+	const {action, user_id, email, token, stytch_token_type} = event.queryStringParameters;
 
 	function composeResponse() {
 		const jwt = response.session_jwt;
@@ -66,8 +67,8 @@ exports.handler = async function (event, context) {
 				    .catch(err => error = err);
 	    	    return error == null ? composeResponse() : composeError();
 				break;
-			case "JWT":
-				await client.sessions.authenticate({session_jwt: session_jwt})
+			case "AUTH":
+				await client.sessions.authenticate({session_jwt: null})
 				    .then(resp => response = resp)
 				  	.catch(err => error = err);
 				return error == null ? composeResponse() : composeError();

@@ -21,32 +21,17 @@
       <button onclick="astrology()">ASTROLOGY</button>
       <button onclick="login('marianne.voidofcourse@gmail.com')">GET MAGIC LINK</button>
       <button onclick="profile()">SHOW PROFILE</button>
-      <button onclick="save()">SAVE COOKIE</button>
-      <button onclick="remove()">DELETE COOKIE</button>
     </main>
   </body>
   <script>
     let user_id, 
-    email = "marianne.voidofcourse@gmail.com",
-    jwt, 
-    cookiePermission;
+    email = "marianne.voidofcourse@gmail.com";
 
     const status = document.querySelector('#status'),
     params = new URLSearchParams(window.location.search),
     token = params.get("token"),
     stytch_token_type = params.get("stytch_token_type");
 
-    async function save() {
-      cookiePermission = true;
-      document.cookie = `session_jwt=${jwt}; SameSite=lax; Secure`;
-      setStatus(`Cookie saved`);
-    }
-
-    async function remove() {
-      cookiePermission = false;
-      document.cookie = `session_jwt=${jwt}; SameSite=lax; Secure`;
-      setStatus(`Cookie removed`);
-    }
 
     async function login() {
       try {
@@ -73,22 +58,16 @@
     }
 
     function handleUserDataResponse(resp) {
-      const {user, session_jwt, error_type} = resp;
+      const {user, error_type} = resp;
 
       if (error_type != null) setStatus(`${error_type} : Request Magic Link`);
       else {
         user_id = user.user_id;
-        jwt = session_jwt
 
         const {natal} = user.trusted_metadata;
         const {first_name} = user.name;
         if (natal == null) setStatus("Get natal snapshot");
-        else {
-          console.log(natal);
-          if (cookiePermission) setStatus(`Hi ${first_name}! Delete Cookie?`);
-          else setStatus(`Hi ${first_name}! Save Cookie?`);
-        }
-        // console.log(session_jwt);
+        else setStatus(`Hi ${first_name}!`);
       }
     }
 
@@ -104,20 +83,10 @@
     }
 
     if (token == null || stytch_token_type == null) {
-      const jwt = document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("session_jwt="))
-        ?.split("=")[1];
-      if (jwt == null) {
-        setStatus("Request Magic Link");
-      }
-      else {
-        cookiePermission = true;
         setStatus("Authenticating");
 
-        fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=JWT&session_jwt=${jwt}`)
-        .then((res) => res.json().then(handleUserDataResponse));
-      }
+        fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=AUTH`)
+        .then((res) => res.json().then((data) => console.log(data)));
     }
     else {
       setStatus("Authenticating");
