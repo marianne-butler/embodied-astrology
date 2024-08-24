@@ -35,7 +35,10 @@
     stytch_token_type = params.get("stytch_token_type");
 
     async function save(save) {
-       setStatus(`Show Profile (cookie=${save ? "yes" : "no"})`);
+      if (save) {
+
+      }
+      setStatus(`Show Profile`);
     }
 
     async function login() {
@@ -94,15 +97,17 @@
 
     if (token == null || stytch_token_type == null) {
       // first look for cookie
-      cookies = document.cookie.split(";");
-      const idx = cookies.indexOf("session_jwt");
-      if (idx === -1) {
+      const jwt = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("test2="))
+        ?.split("=")[1];
+      if (jwt == null) {
         setStatus("Request Magic Link");
       }
       else {
         setStatus("Authenticating");
 
-        fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=JWT&session_jwt=${cookies[idx]}`)
+        fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=JWT&session_jwt=${jwt}`)
         .then((res) => res.json().then(handleUserDataResponse));
       }
     }
