@@ -74,7 +74,6 @@
 
     function handleUserDataResponse(resp) {
       const {user, session_jwt, error_type} = resp;
-      console.log(resp);
 
       if (error_type != null) setStatus(`${error_type} : Request Magic Link`);
       else {

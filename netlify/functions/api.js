@@ -6,24 +6,21 @@ id = 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0';
 
 exports.handler = async function (event, context) {
 	let error, response;
-	console.log("cokkie");
+	console.log("COOKIE");
 	console.log(event.headers.cookie);
 	const {action, session_jwt, user_id, email, token, stytch_token_type} = event.queryStringParameters;
 
-	async function getAstrochart() {
-
-	}
-
-	function composeResponse(jwt) {
-		// if (jwt) head["set-Cookie"] = `jwt=${jwt}; secure; httpOnly; sameSite=Lax`
-		console.log(jwt);
-
+	function composeResponse() {
+		const jwt = response.session_jwt;
+		
 		return {
         	statusCode: 200,
         	body: JSON.stringify(response),
-        	headers: { 
+        	headers: jwt == null ? { 
         		"Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app",
-        		"Set-Cookie": "cookie_name3=TESTED;SameSite=Strict;secure;HttpOnly" 
+        	} : { 
+        		"Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app",
+        		"Set-Cookie": `session_jwt=${jwt};SameSite=Strict;secure;HttpOnly`
         	}
       	}
 	}
