@@ -96,10 +96,9 @@
     }
 
     if (token == null || stytch_token_type == null) {
-      // first look for cookie
       const jwt = document.cookie
         .split("; ")
-        .find((row) => row.startsWith("test2="))
+        .find((row) => row.startsWith("session_jwt="))
         ?.split("=")[1];
       if (jwt == null) {
         setStatus("Request Magic Link");
