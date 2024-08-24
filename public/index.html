@@ -25,6 +25,7 @@
     email = "marianne.voidofcourse@gmail.com";
 
     const status = document.querySelector('#status'),
+    main = querySelector("main"),
     params = new URLSearchParams(window.location.search),
     token = params.get("token"),
     stytch_token_type = params.get("stytch_token_type");
@@ -35,18 +36,14 @@
             fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=MAGIC&email=${email}`)
               .then((res) => res.json()
                 .then((result) => {
-                  setStatus("Check your email!")
-                  console.log(result);
+                  setStatus("EMAIL", result);
                 }));
         } catch(err) {
-          console.log(err);
-          setStatus("Something's not right")
+          setStatus("ERROR", err);
         }
     }
 
     async function astrology() {
-      setStatus("Getting natal chart");
-
       fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=CHART&user_id=${user_id}`)
       .then((res) => res.json().then(handleresponse));
     }
@@ -54,22 +51,58 @@
     function handleresponse(resp) {
       const {user, error_type} = resp;
 
-      if (error_type != null) setStatus(`${error_type} : Request Magic Link`);
+      if (error_type != null) setStatus("MAGIC", {error: error_type});
       else {
         user_id = user.user_id;
 
         const {natal} = user.trusted_metadata;
-        const {first_name} = user.name;
-        if (natal == null) astrology();
-        else setStatus(`Hi ${first_name}!`);
+        if (natal == null) {
+          setStatus("ASTROLOGY", user);
+          astrology();
+        }
+        else setStatus("PROFILE", user);
       }
     }
 
-    function setStatus(string) {
-      status.innerText = string;
+    function setStatus(status, data) {
+      console.log("status", data);
+      main.setAttribute("data-status", status);
+
+      switch(status) {
+        case "AUTH":
+            status.innerText = "Authenticating";
+            break;
+
+        case "MAGIC":
+            status.innerText = "Enter your email address to login or signup";
+            break;
+        
+        case "EMAIL":
+          status.innerText = "We've sent a magic link to the email address you provided";
+          break;
+
+        case "ERROR":
+          status.innerText = "Something went wrong";
+          break;
+
+        case "ASTROLOGY":
+          const {first_name} = data.name;
+          status.innerText = `Hi ${first_name}, we're getting your chart`;
+          break;
+
+        case "PROFILE":
+          const {first_name} = data.name;
+          status.innerText = `Hi ${first_name}, here's your chart!`;
+          break;
+
+        default: 
+          status.innerText = status;
+          break;
+      }
     }
 
-    setStatus("Authenticating");
+    setStatus("AUTH");
+
     if (token == null || stytch_token_type == null) {
         fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=AUTH`)
         .then((res) => res.json().then(handleresponse));
