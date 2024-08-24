@@ -7,19 +7,17 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="An example JavaScript application using Stytch for authentication"
+      content="Visual Tools for Astrologers"
     />
-    <title>Stytch JavaScript Example</title>
+    <title>Embodied Astrology</title>
     <link rel="stylesheet" href="css/stytch.css" />
   </head>
   <body>
-    <noscript>
-      The Stytch JavaScript example application requires JavaScript to run.
-    </noscript>
+    <noscript>Embodied Astrology requires JavaScript to run.</noscript>
     <main>
       <h1 id="status">Welcome</h1>
       <button onclick="get('action=PROFILE')">PROFILE</button>
-      <button onclick="get('action=SESSION')">SESSIONS</button>
+      <button onclick="get('action=SESSIONS')">SESSIONS</button>
       <button onclick="astrology()">ASTROLOGY</button>
       <button onclick="login('marianne.voidofcourse@gmail.com')">GET MAGIC LINK</button>
       <button onclick="save(true)">SAVE COOKIE</button>
@@ -27,7 +25,9 @@
     </main>
   </body>
   <script>
-    let user_id, email = "marianne.voidofcourse@gmail.com";
+    let user_id, 
+    email = "marianne.voidofcourse@gmail.com",
+    cookies;
 
     const status = document.querySelector('#status'),
     params = new URLSearchParams(window.location.search),
@@ -69,6 +69,7 @@
       if (error_type != null) setStatus(`${error_type} : Request Magic Link`);
       else {
         user_id = user.user_id;
+
         const {natal} = user.trusted_metadata;
         const {first_name} = user.name;
         if (natal == null) setStatus("Get natal snapshot");
@@ -93,6 +94,9 @@
 
     if (token == null || stytch_token_type == null) {
       // first look for cookie
+      cookies = document.cookie;
+      console.log(cookies);
+
       setStatus("Request Magic Link");
     }
     else {
