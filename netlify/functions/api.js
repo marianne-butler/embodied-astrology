@@ -23,7 +23,7 @@ exports.handler = async function (event, context) {
         	body: JSON.stringify(response),
         	headers: { 
         		"Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app",
-        		"Set-Cookie": "cookie_name2=testttt HttpOnly" 
+        		"Set-Cookie": "cookie_name2=testttt;HttpOnly" 
         	}
       	}
 	}
