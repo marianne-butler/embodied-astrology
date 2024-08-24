@@ -27,7 +27,7 @@
     </main>
   </body>
   <script>
-    let user_id;
+    let user_id, email = "marianne.voidofcourse@gmail.com";
 
     const status = document.querySelector('#status'),
     params = new URLSearchParams(window.location.search),
@@ -38,9 +38,9 @@
        setStatus(`Show Profile (cookie=${save ? "yes" : "no"})`);
     }
 
-    async function login(email) {
+    async function login() {
       try {
-            fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=MAGIC&email=${email}`)
+            fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=MAGIC&email=${email}`)
               .then((res) => res.json()
                 .then((result) => {
                   setStatus("Check your email!")
@@ -54,7 +54,7 @@
 
     async function get(params) {
       try {
-          fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?user_id=${user_id}&${params}`)
+          fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?user_id=${user_id}&${params}`)
             .then((res) => res.json()
               .then((result) => console.log(result)));
       } catch(err) {
@@ -83,7 +83,7 @@
     async function astrology() {
       setStatus("Getting natal chart");
 
-      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=CHART&user_id=${user_id}`)
+      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=CHART&user_id=${user_id}`)
       .then((res) => res.json().then(handleUserDataResponse));
     }
 
@@ -98,7 +98,7 @@
     else {
       setStatus("Authenticating");
 
-      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/playground?action=LOGIN&token=${token}&stytch_token_type=${stytch_token_type}`)
+      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=LOGIN&token=${token}&stytch_token_type=${stytch_token_type}`)
       .then((res) => res.json().then(handleUserDataResponse));
     }
   </script>
