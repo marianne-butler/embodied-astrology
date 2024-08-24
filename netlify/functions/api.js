@@ -5,10 +5,15 @@ secret = 'secret-test-zgxGcqbRPjKEr_MkhBWag2-KSXvaY1MoCKY=',
 id = 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0';
 
 exports.handler = async function (event, context) {
-	let error, response;
-	console.log(event.headers.cookie);
-	const cookies = event.headers.cookie.split(";");
-	console.log(cookies);
+	let error, response, session_jwt;
+	const cookies = event.headers.cookie;
+	if (cookies != null) {
+		const sesh = cookies.split(";").filter((s) => text.includes("session_jwt"));
+		if (sesh.length > 0) {
+			session_jwt = sesh[0].split("=")[1];
+		}
+	}
+	console.log("jwt", session_jwt);
 
 	const {action, user_id, email, token, stytch_token_type} = event.queryStringParameters;
 
