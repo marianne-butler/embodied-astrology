@@ -70,10 +70,16 @@ exports.handler = async function (event, context) {
 	    	    return error == null ? composeResponse() : composeError();
 				break;
 			case "AUTH":
-				await client.sessions.authenticate({session_jwt: session_jwt})
-				    .then(resp => response = resp)
-				  	.catch(err => error = err);
-				return error == null ? composeResponse() : composeError();
+				if (session_jwt == null) {
+					error = "session_jwt is null";
+					return composeError();
+				}
+				else {
+					await client.sessions.authenticate({session_jwt: session_jwt})
+					    .then(resp => response = resp)
+					  	.catch(err => error = err);
+					return error == null ? composeResponse() : composeError();
+				}
 				break;
 			case "MAGIC":
 				await client.magicLinks.email.loginOrCreate({email: email})
