@@ -20,24 +20,32 @@
       <button onclick="get('action=SESSIONS')">SESSIONS</button>
       <button onclick="astrology()">ASTROLOGY</button>
       <button onclick="login('marianne.voidofcourse@gmail.com')">GET MAGIC LINK</button>
-      <button onclick="save(true)">SAVE COOKIE</button>
-      <button onclick="save(false)">DONT SAVE COOKIE</button>
+      <button onclick="profile()">SHOW PROFILE</button>
+      <button onclick="save()">SAVE COOKIE</button>
+      <button onclick="remove()">DELETE COOKIE</button>
     </main>
   </body>
   <script>
     let user_id, 
     email = "marianne.voidofcourse@gmail.com",
-    jwt;
+    jwt, 
+    cookiePermission;
 
     const status = document.querySelector('#status'),
     params = new URLSearchParams(window.location.search),
     token = params.get("token"),
     stytch_token_type = params.get("stytch_token_type");
 
-    async function save(save) {
-      if (save) document.cookie = `session_jwt=${jwt}; SameSite=lax; Secure`;
-      console.log(document.cookie);
-      setStatus(`Show Profile`);
+    async function save() {
+      cookiePermission = true;
+      document.cookie = `session_jwt=${jwt}; SameSite=lax; Secure`;
+      setStatus(`Cookie saved`);
+    }
+
+    async function remove() {
+      cookiePermission = false;
+      document.cookie = `session_jwt=${jwt}; SameSite=lax; Secure`;
+      setStatus(`Cookie removed`);
     }
 
     async function login() {
@@ -78,7 +86,8 @@
         if (natal == null) setStatus("Get natal snapshot");
         else {
           console.log(natal);
-          setStatus(`Hi ${first_name}! Save Cookie?`);
+          if (cookiePermission) setStatus(`Hi ${first_name}! Delete Cookie?`);
+          else setStatus(`Hi ${first_name}! Save Cookie?`);
         }
         // console.log(session_jwt);
       }
@@ -104,6 +113,7 @@
         setStatus("Request Magic Link");
       }
       else {
+        cookiePermission = true;
         setStatus("Authenticating");
 
         fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=JWT&session_jwt=${jwt}`)

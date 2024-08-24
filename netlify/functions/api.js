@@ -6,6 +6,7 @@ id = 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0';
 
 exports.handler = async function (event, context) {
 	let error, response;
+	console.log(context);
 	const {action, session_jwt, user_id, email, token, stytch_token_type} = event.queryStringParameters;
 
 	async function getAstrochart() {
@@ -19,7 +20,10 @@ exports.handler = async function (event, context) {
 		return {
         	statusCode: 200,
         	body: JSON.stringify(response),
-        	headers: { "Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app" }
+        	headers: { 
+        		"Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app",
+        		"Set-Cookie": "cookie_name1=test" 
+        	}
       	}
 	}
 
