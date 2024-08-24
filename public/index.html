@@ -27,7 +27,7 @@
   <script>
     let user_id, 
     email = "marianne.voidofcourse@gmail.com",
-    cookies;
+    jwt;
 
     const status = document.querySelector('#status'),
     params = new URLSearchParams(window.location.search),
@@ -35,9 +35,8 @@
     stytch_token_type = params.get("stytch_token_type");
 
     async function save(save) {
-      if (save) {
-
-      }
+      if (save) document.cookie = `session_jwt=${jwt}; SameSite=lax; Secure`;
+      console.log(document.cookie);
       setStatus(`Show Profile`);
     }
 
@@ -72,6 +71,7 @@
       if (error_type != null) setStatus(`${error_type} : Request Magic Link`);
       else {
         user_id = user.user_id;
+        jwt = session_jwt
 
         const {natal} = user.trusted_metadata;
         const {first_name} = user.name;
