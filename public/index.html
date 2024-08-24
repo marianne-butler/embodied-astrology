@@ -95,9 +95,16 @@
     if (token == null || stytch_token_type == null) {
       // first look for cookie
       cookies = document.cookie.split(";");
-      console.log(cookies.indexOf("session_jwt"));
+      const idx = cookies.indexOf("session_jwt");
+      if (idx === -1) {
+        setStatus("Request Magic Link");
+      }
+      else {
+        setStatus("Authenticating");
 
-      setStatus("Request Magic Link");
+        fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=JWT&session_jwt=${cookies[idx]}`)
+        .then((res) => res.json().then(handleUserDataResponse));
+      }
     }
     else {
       setStatus("Authenticating");

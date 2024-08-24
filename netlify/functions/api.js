@@ -6,7 +6,7 @@ id = 'project-test-6f387723-84a0-4c92-8f67-4f1b259d9ba0';
 
 exports.handler = async function (event, context) {
 	let error, response;
-	const {action, user_id, email, token, stytch_token_type} = event.queryStringParameters;
+	const {action, session_jwt, user_id, email, token, stytch_token_type} = event.queryStringParameters;
 
 	async function getAstrochart() {
 
@@ -56,11 +56,17 @@ exports.handler = async function (event, context) {
 						.catch(err => error = err);
 		    	}
 				break;
-			case "SESSIONS":
+			case "USER_SESSIONS":
 				await client.sessions.get({user_id: user_id})
 				    .then(resp => response = resp)
 				    .catch(err => error = err);
 	    	    return error == null ? composeResponse() : composeError();
+				break;
+			case "JWT":
+				await client.sessions.authenticate({session_jwt: session_jwt})
+				    .then(resp => response = resp)
+				  	.catch(err => error = err);
+				return error == null ? composeResponse() : composeError();
 				break;
 			case "MAGIC":
 				await client.magicLinks.email.loginOrCreate({email: email})
