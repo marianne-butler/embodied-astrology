@@ -13,8 +13,6 @@ exports.handler = async function (event, context) {
 			session_jwt = sesh[0].split("=")[1];
 		}
 	}
-	console.log("jwt", session_jwt);
-
 	const {action, user_id, email, token, stytch_token_type} = event.queryStringParameters;
 
 	function composeResponse() {
@@ -24,12 +22,10 @@ exports.handler = async function (event, context) {
         	statusCode: 200,
         	body: JSON.stringify(response),
         	headers: jwt == null ? { 
-        		"Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app",
-        		"Set-Cookie": "cookie_name3=o;expires:0"
+        		"Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app"
         	} : { 
         		"Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app",
-        		"Set-Cookie": `session_jwt=${jwt};SameSite=Strict;secure;HttpOnly`,
-        		"Set-Cookie": "cookie_name3=o;expires:0"
+        		"Set-Cookie": `session_jwt=${jwt};SameSite=Strict;secure;HttpOnly`
         	}
       	}
 	}
@@ -74,7 +70,7 @@ exports.handler = async function (event, context) {
 	    	    return error == null ? composeResponse() : composeError();
 				break;
 			case "AUTH":
-				await client.sessions.authenticate({session_jwt: null})
+				await client.sessions.authenticate({session_jwt: session_jwt})
 				    .then(resp => response = resp)
 				  	.catch(err => error = err);
 				return error == null ? composeResponse() : composeError();
