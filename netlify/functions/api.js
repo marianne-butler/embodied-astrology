@@ -8,7 +8,7 @@ exports.handler = async function (event, context) {
 	let error, response, session_jwt;
 	const cookies = event.headers.cookie;
 	if (cookies != null) {
-		const sesh = cookies.split(";").filter((s) => text.includes("session_jwt"));
+		const sesh = cookies.split(";").filter((s) => s.includes("session_jwt"));
 		if (sesh.length > 0) {
 			session_jwt = sesh[0].split("=")[1];
 		}
