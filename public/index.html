@@ -71,6 +71,10 @@
       }
     }
 
+    function handleInitialLoad(resp) {
+      console.log(resp);
+    }
+
     async function astrology() {
       setStatus("Getting natal chart");
 
@@ -86,7 +90,7 @@
         setStatus("Authenticating");
 
         fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=AUTH`)
-        .then((res) => res.json().then((data) => console.log(data)));
+        .then((res) => res.json().then(handleInitialLoad));
     }
     else {
       setStatus("Authenticating");
