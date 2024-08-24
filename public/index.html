@@ -57,7 +57,7 @@
       }
     }
 
-    function handleUserDataResponse(resp) {
+    function handleresponse(resp) {
       const {user, error_type} = resp;
 
       if (error_type != null) setStatus(`${error_type} : Request Magic Link`);
@@ -71,32 +71,25 @@
       }
     }
 
-    function handleInitialLoad(resp) {
-      console.log(resp);
-    }
-
     async function astrology() {
       setStatus("Getting natal chart");
 
       fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=CHART&user_id=${user_id}`)
-      .then((res) => res.json().then(handleUserDataResponse));
+      .then((res) => res.json().then(handleresponse));
     }
 
     function setStatus(string) {
       status.innerText = string;
     }
 
+    setStatus("Authenticating");
     if (token == null || stytch_token_type == null) {
-        setStatus("Authenticating");
-
         fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=AUTH`)
-        .then((res) => res.json().then(handleInitialLoad));
+        .then((res) => res.json().then(handleresponse));
     }
     else {
-      setStatus("Authenticating");
-
       fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=LOGIN&token=${token}&stytch_token_type=${stytch_token_type}`)
-      .then((res) => res.json().then(handleUserDataResponse));
+      .then((res) => res.json().then(handleresponse));
     }
   </script>
 </html>
