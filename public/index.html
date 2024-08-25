@@ -134,8 +134,12 @@
     setStatus("AUTH");
 
     if (token == null || stytch_token_type == null) {
-        fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=AUTH`)
-        .then((res) => res.json().then(handleresponse));
+        try {
+          fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=AUTH`)
+          .then((res) => res.json().then(handleresponse));
+        } catch(error) {
+          handleresponse(err);
+        }
     }
     else {
       fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=LOGIN&token=${token}&stytch_token_type=${stytch_token_type}`)
