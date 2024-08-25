@@ -33,11 +33,26 @@
       return (value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/));
     }
 
+    function validateNatalfields() {
+      return true;
+    }
+
     main.addEventListener("click", (e) => {
       switch(e.target.getAttribute("data-action")) {
         case "MAGIC":
           email = document.querySelector('input[data-id="EMAIL"]').value;
-          setStatus(validateEmail(email) ? "LOADING" : "INVALID_EMAIL");
+          if (validateEmail(email)) {
+            magic();
+            setStatus("INVALID_EMAIL");
+          }
+          setStatus("LOADING" : "INVALID_EMAIL");
+          break;
+
+        case "NATAL":
+          if (validateNatalfields()) {
+            astrology();
+            setStatus("INVALID_DETAILS");
+          }
           break;
 
           default:
@@ -59,8 +74,12 @@
     }
 
     async function astrology() {
-      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=CHART&user_id=${user_id}`)
-      .then((res) => res.json().then(handleresponse));
+      try {
+        fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=CHART&user_id=${user_id}`)
+        .then((res) => res.json().then(handleresponse));
+      } catch(err) {
+        setStatus("ERROR", err);
+      }
     }
 
     function handleresponse(resp) {
@@ -71,10 +90,7 @@
         user_id = user.user_id;
 
         const {natal} = user.trusted_metadata;
-        if (natal == null) {
-          setStatus("ASTROLOGY", user);
-          astrology();
-        }
+        if (natal == null) setStatus("ASTROLOGY", user);
         else setStatus("PROFILE", user);
       }
     }
@@ -105,6 +121,10 @@
            main.querySelector('small').innerText = "Please enter a valid email address :)";
            break;
 
+         case "INVALID_DETAILS":
+           main.querySelector('small').innerText = "Please complete all the fields :)";
+           break;
+
          case "LOADING":
             main.innerHTML = "Loading...";
             break;
@@ -118,7 +138,22 @@
           break;
 
         case "ASTROLOGY":
-          message.innerText = `Hi ${name.first_name}, we're getting your chart`;
+          message.innerText = `Hi ${name.first_name}, let's get your Natal Chart`;
+          main.innerHTML = `
+            <label>
+              <span>Enter your time and place of b</span>
+              <input data-id="COUNTRY" type="text" placeholder="Country" />
+              <input data-id="REGION" type="text" placeholder="County, Province or State" />
+              <input data-id="TOWN" type="text" placeholder="Town or City" />
+              <input data-id="YEAR" type="number" placeholder="Year" />
+              <input data-id="MONTH" type="text" placeholder="Month" />
+              <input data-id="DATE" type="number" placeholder="Date" />
+              <input data-id="HOUR" type="number" placeholder="Hour" />
+              <input data-id="MINUTE" type="number" placeholder="Minute" />
+              <button data-action="NATAL">SUBMIT</button>
+              <small></small>
+            </label>
+          `;
           break;
 
         case "PROFILE":
