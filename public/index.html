@@ -24,7 +24,7 @@
     let user_id, email, chart;
 
     const message = document.querySelector('h2'),
-    main = querySelector("main"),
+    main = document.querySelector("main"),
     params = new URLSearchParams(window.location.search),
     token = params.get("token"),
     stytch_token_type = params.get("stytch_token_type");
