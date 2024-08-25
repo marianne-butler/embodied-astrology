@@ -13,7 +13,7 @@ exports.handler = async function (event, context) {
 			session_jwt = sesh[0].split("=")[1];
 		}
 	}
-	const {action, user_id, name, email, token, stytch_token_type, snapshot_params} = event.queryStringParameters;
+	const {action, user_id, email} = event.queryStringParameters;
 
 	function composeResponse() {
 		const jwt = response.session_jwt;
@@ -88,6 +88,8 @@ exports.handler = async function (event, context) {
 				return error == null ? composeResponse() : composeError();
 				break;
 			case "LOGIN":
+				const {token, stytch_token_type} = event.queryStringParameters;
+
 				switch (stytch_token_type) {
 					case "magic_links":
 					await client.magicLinks.authenticate({
@@ -107,8 +109,9 @@ exports.handler = async function (event, context) {
 				break;
 			case "CHART":
 				let natal;
-				
-				await fetch(`https://astro-api-a4afb1474dd8.herokuapp.com/snapshot?${snapshot_params}`)
+				const {name, place, year, month, day, hour, minute} = event.queryStringParameters;
+
+				await fetch(`https://astro-api-a4afb1474dd8.herokuapp.com/snapshot?place=${place}&year=${year}&month=${month}&day=${day}&hour=${hour}&minute=${minute}`)
 				.then(res => res.json().then(json => natal = json));
 				
 				await client.users.update({
