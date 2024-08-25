@@ -64,7 +64,7 @@
     }
 
     function setStatus(status, data = {}) {
-      console.log("status", data);
+      console.log("status", status, data);
       const {name, error_type} = data;
       main.setAttribute("data-status", status);
 
