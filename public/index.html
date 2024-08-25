@@ -89,7 +89,7 @@
 
     async function astrology(snapshot_params) {
       try {
-        fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=CHART&user_id=${user_id}?${snapshot_params}`)
+        fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=CHART&user_id=${user_id}&${snapshot_params}`)
         .then((res) => res.json().then(handleresponse));
       } catch(err) {
         setStatus("ERROR", err);
