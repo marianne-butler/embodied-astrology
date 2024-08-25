@@ -156,11 +156,12 @@ main label {
 
 main label span {
   padding: 0.5rem;
+  text-align: right;
 }
 
 main label input,
 main label select,
-main label button  {
+main button  {
   border: 1px solid;
   padding: 0.5rem;
   background: white;
