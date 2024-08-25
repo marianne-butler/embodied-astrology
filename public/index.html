@@ -244,6 +244,7 @@
           break;
         case "PROFILE":
           message.innerText = `Hi ${name.first_name}, here's your chart!`;
+          main.querySelector('small').innerText = resp.trusted_metadata.natal;
           break;
 
         default: 
