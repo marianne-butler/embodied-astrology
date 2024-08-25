@@ -132,6 +132,7 @@
 
         case "EMAIL":
           message.innerText = `We've sent a magic link to ${email}`;
+          main.innerHTML = "";
           break;
 
         case "ERROR":
@@ -139,7 +140,7 @@
           break;
 
         case "ASTROLOGY":
-          message.innerText = `Hi ${name.first_name}, let's get your Natal Chart`;
+          message.innerText = `Hi, let's get your Natal Chart`;
           main.innerHTML = `
             <label>
               <span>Enter your time and place of b</span>
