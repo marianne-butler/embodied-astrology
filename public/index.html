@@ -34,15 +34,19 @@
     }
 
     function validateNatalfields() {
-      console.log(document.querySelector('[data-id="COUNTRY"]').value);
-      console.log(document.querySelector('[data-id="REGION"]').value);
-      console.log(document.querySelector('[data-id="TOWN"]').value);
-      console.log(document.querySelector('[data-id="YEAR"]').value);
-      console.log(document.querySelector('[data-id="MONTH"]').value);
-      console.log(document.querySelector('[data-id="DATE"]').value);
-      console.log(document.querySelector('[data-id="HOUR"]').value);
-      console.log(document.querySelector('[data-id="MINUTE"]').value);
-      return false;
+      const name = document.querySelector('[data-id="NAME').value;
+      const place1 = document.querySelector('[data-id="COUNTRY"]').value;
+      const place2 = document.querySelector('[data-id="REGION"]').value;
+      const place3 = document.querySelector('[data-id="TOWN"]').value;
+      const year = document.querySelector('[data-id="YEAR"]').value;
+      const month = document.querySelector('[data-id="MONTH"]').value;
+      const date = document.querySelector('[data-id="DATE"]').value;
+      const hour = document.querySelector('[data-id="HOUR"]').value;
+      const minute = document.querySelector('[data-id="MINUTE"]').value;
+      
+      if (name == null || place1 == null || place2 == null || place3 == null || year == null || month == null || date == null || hour == null || minute == null) return null;
+
+      return `name=${name}&place=${place1}%20${place2}%20${place3}&year=${year}&month=${month}&day=${date}&hour=${hour}&minute=${minute}`;
     }
 
     main.addEventListener("click", (e) => {
@@ -57,8 +61,9 @@
           break;
 
         case "NATAL":
-          if (validateNatalfields()) {
-            astrology();
+          const snapshot_params = validateNatalfields();
+          if (snapshot_params != null) {
+            astrology(snapshot_params);
             setStatus("LOADING");
           }
           else setStatus("INVALID_DETAILS");
@@ -82,9 +87,9 @@
         }
     }
 
-    async function astrology() {
+    async function astrology(snapshot_params) {
       try {
-        fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=CHART&user_id=${user_id}`)
+        fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=CHART&user_id=${user_id}?${snapshot_params}`)
         .then((res) => res.json().then(handleresponse));
       } catch(err) {
         setStatus("ERROR", err);
@@ -150,6 +155,11 @@
         case "ASTROLOGY":
           message.innerText = `Hi, let's get your Natal Chart`;
           main.innerHTML = `
+            <h3>What's your name?</h3>
+            <label>
+              <span>Choose a username</span>
+              <input data-id="NAME" type="text" placeholder="eg Alex" />
+            </label>
             <h3>Where and when were you born?</h3>
             <label>
               <span>Country</span>
@@ -222,11 +232,11 @@
             </label>
             <label>
               <span>Hour</span>
-              <input data-id="HOUR" type="number" min="0" max="23" value="0" />
+              <input data-id="HOUR" type="number" min="0" max="23" placeholder="0" />
             </label>
             <label>
               <span>Minute</span>
-              <input data-id="MINUTE" type="number" min="0" max="59" value="0" />
+              <input data-id="MINUTE" type="number" min="0" max="59" placeholder="0" />
             </label>  
             <button data-action="NATAL">SUBMIT</button>
             <small></small>
