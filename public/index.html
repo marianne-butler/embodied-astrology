@@ -37,8 +37,7 @@
       switch(e.target.getAttribute("data-action")) {
         case "MAGIC":
           email = document.querySelector('input[data-id="EMAIL"]').value;
-          if (validateEmail(email)) magic();
-          else setStatus("INVALID_EMAIL");
+          setStatus(validateEmail(email) ? "LOADING" : "INVALID_EMAIL");
           break;
 
           default:
@@ -103,11 +102,15 @@
             break;
         
         case "INVALID_EMAIL":
-           main.querySelector('small').innerText = "Enter a valid email address :)";
+           main.querySelector('small').innerText = "Please enter a valid email address :)";
            break;
 
+         case "LOADING":
+            main.innerHTML = "Loading...";
+            break;
+
         case "EMAIL":
-          message.innerText = "We've sent a magic link to the email address you provided";
+          message.innerText = `We've sent a magic link to ${email}`;
           break;
 
         case "ERROR":
