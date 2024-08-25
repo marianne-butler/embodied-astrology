@@ -29,8 +29,8 @@
     token = params.get("token"),
     stytch_token_type = params.get("stytch_token_type");
 
-    function validateEmail(input) {
-      return (input.value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/));
+    function validateEmail(value) {
+      return (value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/));
     }
 
     main.addEventListener("click", (e) => {
