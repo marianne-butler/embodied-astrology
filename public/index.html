@@ -65,6 +65,7 @@
 
     function setStatus(status, data) {
       console.log("status", data);
+      const {name, error_type} = data;
       main.setAttribute("data-status", status);
 
       switch(status) {
@@ -86,13 +87,11 @@
           break;
 
         case "ASTROLOGY":
-          const {first_name} = data.name;
-          message.innerText = `Hi ${first_name}, we're getting your chart`;
+          message.innerText = `Hi ${name.first_name}, we're getting your chart`;
           break;
 
         case "PROFILE":
-          const {first_name} = data.name;
-          message.innerText = `Hi ${first_name}, here's your chart!`;
+          message.innerText = `Hi ${name.first_name}, here's your chart!`;
           break;
 
         default: 
