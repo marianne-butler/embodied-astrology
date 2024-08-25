@@ -148,6 +148,10 @@ main > * {
   margin-bottom: 1rem;
 } 
 
-main input {
+main input,
+main select,
+main button  {
   border: 1px solid;
+  padding:1rem;
+  background: white;
 }
