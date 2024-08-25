@@ -147,3 +147,7 @@ main {
 main > * {
   margin-bottom: 1rem;
 } 
+
+main input {
+  border: 1px solid;
+}
