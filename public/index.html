@@ -29,6 +29,23 @@
     token = params.get("token"),
     stytch_token_type = params.get("stytch_token_type");
 
+    function validateEmail(input) {
+      return (input.value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/));
+    }
+
+    main.addEventListener("click", (e) => {
+      switch(e.target.getAttribute("data-action")) {
+        case "MAGIC":
+          email = document.querySelector('input[data-id="EMAIL"]').value;
+          if (validateEmail(email)) magic();
+          else setStatus("INVALID_EMAIL");
+          break;
+
+          default:
+          break;
+        }
+    });
+
 
     async function magic() {
       try {
@@ -74,10 +91,21 @@
             break;
 
         case "MAGIC":
-            message.innerText = "Enter your email address to login or signup";
-            main.innerHTML = '<input type="email" placeholder="email address" />';
+            message.innerText = "Welcome!";
+            main.innerHTML = `
+              <label>
+                <span>Enter your email address to login or signup</span>
+                <input data-id="EMAIL" type="email" placeholder="email address" />
+                <button data-action="MAGIC">SUBMIT</button>
+                <small></small>
+              </label>
+            `;
             break;
         
+        case "INVALID_EMAIL":
+           main.querySelector('small').innerText = "Enter a valid email address :)";
+           break;
+
         case "EMAIL":
           message.innerText = "We've sent a magic link to the email address you provided";
           break;
