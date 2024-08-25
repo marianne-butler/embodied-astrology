@@ -34,7 +34,7 @@
     }
 
     function validateNatalfields() {
-      return true;
+      return false;
     }
 
     main.addEventListener("click", (e) => {
@@ -43,16 +43,17 @@
           email = document.querySelector('input[data-id="EMAIL"]').value;
           if (validateEmail(email)) {
             magic();
-            setStatus("INVALID_EMAIL");
+            setStatus("LOADING");
           }
-          setStatus("LOADING" : "INVALID_EMAIL");
+          setStatus("INVALID_EMAIL");
           break;
 
         case "NATAL":
           if (validateNatalfields()) {
             astrology();
-            setStatus("INVALID_DETAILS");
+            setStatus("LOADING");
           }
+          else setStatus("INVALID_DETAILS");
           break;
 
           default:
