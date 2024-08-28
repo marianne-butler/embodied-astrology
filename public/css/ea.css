@@ -121,7 +121,7 @@ header h1 {
   transform: scale(0.6);
   transform-origin: center top;
   pointer-events: none;
-  padding: 0 5rem;
+  padding: 0 10vw;
 }
 
 header h2 {
@@ -133,7 +133,7 @@ header h2 {
   transform-origin: center top;
   pointer-events: none;
   margin-top: 1rem;
-  padding: 0 5rem;
+  padding: 0 10vw;
   font-family: 'Fira Mono';
 }
 
@@ -149,7 +149,7 @@ main {
 
 main > * {
   margin: 1rem auto;
-  width: 80%;
+  width: calc(100% - 2rem);
   max-width: 400px;
 } 
 
