@@ -88,7 +88,7 @@ exports.handler = async function (event, context) {
 	    				operator: "AND",
 	    				operands: [{filter_name: "email_address", filter_value: [email]}]}
 	    			})
-				    .then(resp => response = {"user": resp['results'][0]})
+				    .then(resp => response = resp['results'].length > 0 ? {"user": resp['results'][0]} : null)
 					.catch(err => error = err);
 
 				if (response != null) {
