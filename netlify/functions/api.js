@@ -93,7 +93,7 @@ exports.handler = async function (event, context) {
 
 				if (resp != null) {
 					console.log(response);
-					composeResponse();
+					return composeResponse();
 				}
 
 				else {
