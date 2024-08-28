@@ -114,7 +114,7 @@
       const {user, error_type, errorType} = resp;
 
       // if (error_type != null) setStatus("MAGIC", {error: error_type});
-      if (error_type != null || errorType != null) setStatus("MAGIC_WAITING_LIST", {error: error_type == null ? errorType : error_type});
+      if (error_type != null || errorType != null) setStatus("MAGIC_WAITING_LIST", {error_type: error_type == null ? errorType : error_type});
       else {
         if (user == null) {
           // user needs to validate their email
