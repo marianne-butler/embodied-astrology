@@ -287,13 +287,13 @@
           break;
 
         case "MAGIC_WAITING_LIST":
-            message.innerText = (error_type == null) ? "Get on the Waiting List!" : "Something went wrong, please try again." ;
+            message.innerText = (error_type == null) ? "Join the Waiting List" : "Something went wrong, please try again." ;
             main.innerHTML = `
               <label>
                 <span>Enter your email address to be notified when signup opens</span>
                 <input data-id="EMAIL" type="email" placeholder="email address" />
               </label>
-              <button data-action="MAGIC">Get on the List</button>
+              <button data-action="MAGIC">Join the Waiting Listt</button>
               <small></small>
             `;
             break;
