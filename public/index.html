@@ -147,7 +147,7 @@
 
     function setStatus(status, data = {}) {
       console.log("status", status, data);
-      const {name, error_type} = data;
+      const {name, emails, error_type} = data;
       main.setAttribute("data-status", status);
 
       switch(status) {
@@ -171,13 +171,13 @@
            main.querySelector('small').innerText = "Please enter a valid email address :)";
            break;
 
-         case "INVALID_DETAILS":
-           main.querySelector('small').innerText = "Please complete all the fields :)";
-           break;
+       case "INVALID_DETAILS":
+         main.querySelector('small').innerText = "Please complete all the fields :)";
+         break;
 
-         case "LOADING":
-            main.innerHTML = "Loading...";
-            break;
+       case "LOADING":
+          main.innerHTML = "Loading...";
+          break;
 
         case "EMAIL":
           message.innerText = `You've got mail!`;
@@ -300,7 +300,7 @@
 
         case "WAITING_LIST_OK":
           message.innerText = `You're on the Waiting List!`;
-          main.innerHTML = `<small>${user.emails[0].email}</small><h3>You will receive an email when signup opens</h3>`;
+          main.innerHTML = `<small>${emails[0].email}</small><h3>You will receive an email when signup opens</h3>`;
           break;
 
         default: 
