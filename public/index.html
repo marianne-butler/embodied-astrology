@@ -116,7 +116,8 @@
     function handleResponse(resp) {
       const {user, error_type} = resp;
 
-      if (error_type != null) setStatus("MAGIC", {error: error_type});
+      // if (error_type != null) setStatus("MAGIC", {error: error_type});
+      if (error_type != null) setStatus("MAGIC_WAITING_LIST", {error: error_type});
       else {
         // we have a user either from a saved sessionjwt, or from a magic link
         user_id = user.user_id;
