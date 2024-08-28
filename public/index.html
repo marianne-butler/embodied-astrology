@@ -294,9 +294,7 @@
     }
 
     // setStatus("AUTH");
-
     // if (token == null || stytch_token_type == null) validateSession(); // not saving cookies yet so this will never work
-    
     if (token == null || stytch_token_type == null) setStatus("MAGIC_WAITING_LIST");
     else validatMagic();
 
