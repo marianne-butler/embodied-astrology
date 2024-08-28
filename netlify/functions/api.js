@@ -109,10 +109,10 @@ exports.handler = async function (event, context) {
 					case "magic_links":
 					await client.magicLinks.authenticate({
 							token: token, 
-							options: {
-								ip_match_required: true,
-								user_agent_match_required: true,
-							},
+							// options: {
+							// 	ip_match_required: true,
+							// 	user_agent_match_required: true,
+							// },
 							session_duration_minutes: 42480
 						})
 						.then(resp => response = resp)
