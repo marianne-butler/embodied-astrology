@@ -148,7 +148,7 @@ main {
 }
 
 main > * {
-  margin-bottom: 1rem;
+  margin: 1rem auto;
 } 
 
 main label,
@@ -175,7 +175,6 @@ main button  {
   background: white;
   width: 230px;
   border-radius: 5px;
-  margin-top: 0.5rem;
 }
 
 main button {
