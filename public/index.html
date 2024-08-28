@@ -114,7 +114,7 @@
       const {user, error_type, errorType} = resp;
 
       // if (error_type != null) setStatus("MAGIC", {error: error_type});
-      if (error_type != null || errorType != null) setStatus("MAGIC_WAITING_LIST", {error: error_type});
+      if (error_type != null || errorType != null) setStatus("MAGIC_WAITING_LIST", {error: error_type == null ? errorType : error_type});
       else {
         if (user == null) {
           // user needs to validate their email
@@ -169,7 +169,7 @@
 
         case "EMAIL":
           message.innerText = `You've got mail!`;
-           main.innerHTML = `<p>We've sent an email to ${email}. Please click the link int hat email to validate your email address.</p>`;
+           main.innerHTML = `<p>We've sent an email to ${email}. Please click the button in that email to validate your email address.</p>`;
           // message.innerText = `We've sent a magic link to ${email}`;
           // main.innerHTML = "";
           break;
@@ -275,7 +275,7 @@
           break;
 
         case "MAGIC_WAITING_LIST":
-            message.innerText = "Get on the Waiting List!";
+            message.innerText = (error_type == null) ? "Get on the Waiting List!" : "Something went wrong, please try again." ;
             main.innerHTML = `
               <label>
                 <span>Enter your email address to be notified when signup opens</span>
