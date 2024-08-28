@@ -151,13 +151,18 @@ main > * {
 } 
 
 main label {
-  display: grid;
-  grid-template-columns: 200px 200px;
+  display: flex;
+  flex-direction: column;
+  al;align-items: center;
+  justify-content: center;
+  text-align: center;
+ /* display: grid;
+  grid-template-columns: 200px 200px;*/
 }
 
 main label span {
   padding: 0.5rem;
-  text-align: right;
+/*  text-align: right;*/
 }
 
 main label input,
