@@ -169,10 +169,10 @@ main label input,
 main label select,
 main button  {
   border: 1px solid;
-  padding: 0.5rem;
+  padding: 1rem;
   background: white;
   width: 200px;
-  border-radius: 0.5rem;
+  border-radius: 5px;
 }
 
 main button {
