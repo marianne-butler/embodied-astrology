@@ -14,19 +14,19 @@
 
 @font-face {
   font-family: "Josefin Sans";
-  src: url("../josefinSans-VariableFont_wght.ttf") format("truetype-variations");
+  src: url("./josefinSans-VariableFont_wght.ttf") format("truetype-variations");
   font-weight: 100 700;
   font-style: normal;
 }
 @font-face {
   font-family: "Bodoni Moda";
-  src: url("../BodoniModa-VariableFont_wght.ttf") format("truetype-variations");
+  src: url("./BodoniModa-VariableFont_wght.ttf") format("truetype-variations");
   font-weight: 400 900;
   font-style: normal;
 }
 @font-face {
   font-family: "Fira Mono";
-  src: url("../FiraMono-Regular.ttf") format("truetype");
+  src: url("./FiraMono-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
