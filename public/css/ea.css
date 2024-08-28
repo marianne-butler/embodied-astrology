@@ -177,6 +177,10 @@ main button  {
   border-radius: 5px;
 }
 
+main label input {
+  margin-top: 1rem;
+}
+
 main button {
   background: var(--content);
   color: white;
