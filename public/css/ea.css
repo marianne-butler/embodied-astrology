@@ -151,10 +151,11 @@ main > * {
   margin-bottom: 1rem;
 } 
 
-main label {
+main label,
+main h3 {
   display: flex;
   flex-direction: column;
-  al;align-items: center;
+  align-items: center;
   justify-content: center;
   text-align: center;
  /* display: grid;
