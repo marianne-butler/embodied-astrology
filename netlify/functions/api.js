@@ -94,19 +94,14 @@ exports.handler = async function (event, context) {
 				if (response != null) {
 					console.log("response", response);
 					if (response['user']['emails'][0].verified) return composeResponse();
+					else response = null;
 				}
 
-				else {
-					response = null;
-
-					console.log("MAGIC");
-
-					await client.magicLinks.email.loginOrCreate({email: email})
-						.then(resp => response = resp)
-					  	.catch(err => error = err);
-					
-					return error == null ? composeResponse() : composeError();
-				}
+				await client.magicLinks.email.loginOrCreate({email: email})
+					.then(resp => response = resp)
+				  	.catch(err => error = err);
+				
+				return error == null ? composeResponse() : composeError();
 				
 				break;
 			case "LOGIN":
