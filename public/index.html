@@ -168,7 +168,8 @@
             break;
 
         case "EMAIL":
-          message.innerText = `We've sent an email validation to verify your email address via the link we have just sent to ${email}.`;
+          message.innerText = `You've got mail!`;
+           main.innerHTML = `<p>We've sent an email to ${email}. Please click the link int hat email to validate your email address.</p>`;
           // message.innerText = `We've sent a magic link to ${email}`;
           // main.innerHTML = "";
           break;
