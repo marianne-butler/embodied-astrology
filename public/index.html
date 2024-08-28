@@ -76,11 +76,8 @@
 
     async function requestMagic() {
       try {
-            fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=MAGIC&email=${email}`)
-              .then((res) => res.json()
-                .then((result) => {
-                  setStatus("EMAIL", result);
-                }));
+          fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=MAGIC&email=${email}`)
+          .then((res) => res.json().then(handleMagicLinkResponse));
         } catch(err) {
           setStatus("ERROR", err);
         }
@@ -127,6 +124,17 @@
         // if (natal == null) setStatus("ASTROLOGY", user);
         // else setStatus("PROFILE", user);
         setStatus("WAITING_LIST_OK", user);
+      }
+    }
+
+    function handleMagicLinkResponse(resp) {
+      const {user, error_type, errorType} = resp;
+
+      if (error_type != null || errorType != null) setStatus("MAGIC_WAITING_LIST", {error: error_type});
+      else {
+        console.log(user);
+        setStatus("EMAIL", result);
+        // setStatus("WAITING_LIST_OK", user);
       }
     }
 
