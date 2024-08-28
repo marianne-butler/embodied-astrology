@@ -86,7 +86,7 @@ exports.handler = async function (event, context) {
 	    			limit: 1,
 	    			query: {
 	    				operator: "AND",
-	    				operands: [{filter_name: "email_address", filter_value: email}]}
+	    				operands: [{filter_name: "email_address", filter_value: [email]}]}
 	    			})
 				    .then(resp => response = resp)
 					.catch(err => error = err);
