@@ -77,7 +77,7 @@
     async function requestMagic() {
       try {
           fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=MAGIC&email=${email}`)
-          .then((res) => res.json().then(handleMagicLinkResponse));
+          .then((res) => res.json().then(handleResponse));
         } catch(err) {
           setStatus("ERROR", err);
         }
@@ -116,25 +116,20 @@
       // if (error_type != null) setStatus("MAGIC", {error: error_type});
       if (error_type != null || errorType != null) setStatus("MAGIC_WAITING_LIST", {error: error_type});
       else {
-        // we have a user either from a saved sessionjwt, or from a magic link
-        user_id = user.user_id;
+        if (user == null) {
+          // user needs to validate their email
+          setStatus("EMAIL", result);
+        }
+        else {
+          user_id = user.user_id;
+          // we have a user either from a saved sessionjwt, or from a magic link
 
-        // users need to complete signup - this will include STRIPE signup
-        // const {natal} = user.trusted_metadata;
-        // if (natal == null) setStatus("ASTROLOGY", user);
-        // else setStatus("PROFILE", user);
-        setStatus("WAITING_LIST_OK", user);
-      }
-    }
-
-    function handleMagicLinkResponse(resp) {
-      const {user, error_type, errorType} = resp;
-
-      if (error_type != null || errorType != null) setStatus("MAGIC_WAITING_LIST", {error: error_type});
-      else {
-        console.log(user);
-        setStatus("EMAIL", result);
-        // setStatus("WAITING_LIST_OK", user);
+          // users need to complete signup - this will include STRIPE signup
+          // const {natal} = user.trusted_metadata;
+          // if (natal == null) setStatus("ASTROLOGY", user);
+          // else setStatus("PROFILE", user);
+          setStatus("WAITING_LIST_OK", user);
+        }
       }
     }
 

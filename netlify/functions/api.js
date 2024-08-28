@@ -88,12 +88,12 @@ exports.handler = async function (event, context) {
 	    				operator: "AND",
 	    				operands: [{filter_name: "email_address", filter_value: [email]}]}
 	    			})
-				    .then(resp => response = resp)
+				    .then(resp => response = {"user": resp['results'][0]})
 					.catch(err => error = err);
 
 				if (response != null) {
-					console.log(response['results'][0]['emails'][0].verified);
-					return composeResponse();
+					if (response['user']['emails'][0].verified) return composeResponse();
+					else response = null;
 				}
 
 				await client.magicLinks.email.loginOrCreate({email: email})
