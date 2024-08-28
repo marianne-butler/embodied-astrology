@@ -149,7 +149,8 @@ main {
 
 main > * {
   margin: 1rem auto;
-  max-width: 80%;
+  width: 80%;
+  max-width: 400px;
 } 
 
 main label,
@@ -174,17 +175,18 @@ main button  {
   border: 1px solid;
   padding: 1rem;
   background: white;
-  width: 230px;
+  width: calc(100% - 2rem);
   border-radius: 5px;
 }
 
 main label input {
+  max-width: 230px;
   margin-top: 1rem;
 }
 
 main button {
   background: var(--content);
   color: white;
-  width: 120;
+  max-width: 120px;
   cursor: pointer;
 }
