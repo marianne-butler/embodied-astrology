@@ -300,7 +300,7 @@
 
         case "WAITING_LIST_OK":
           message.innerText = `You're on the Waiting List!`;
-          main.innerHTML = "<h3>You will receive an email when signup opens</h3>";
+          main.innerHTML = `<small>${user.emails[0].email}</small><h3>You will receive an email when signup opens</h3>`;
           break;
 
         default: 
