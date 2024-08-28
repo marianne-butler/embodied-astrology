@@ -92,7 +92,7 @@ exports.handler = async function (event, context) {
 					.catch(err => error = err);
 
 				if (response != null) {
-					console.log(response);
+					console.log(response['results'][0]['emails'][0].verified);
 					return composeResponse();
 				}
 
