@@ -85,8 +85,9 @@ exports.handler = async function (event, context) {
 				await client.users.search({
 	    			limit: 1,
 	    			query: {
-	    				operands: [
-	    				{filter_name: "email_address", filter_value: email}]}})
+	    				operator: "AND",
+	    				operands: [{filter_name: "email_address", filter_value: email}]}
+	    			})
 				    .then(resp => response = resp)
 					.catch(err => error = err);
 
