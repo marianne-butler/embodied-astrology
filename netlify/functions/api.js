@@ -13,7 +13,7 @@ exports.handler = async function (event, context) {
 			session_jwt = sesh[0].split("=")[1];
 		}
 	}
-	const {action, user_id, email} = event.queryStringParameters;
+	const {action, user_id, email, cookie} = event.queryStringParameters;
 
 	function composeResponse() {
 		const jwt = response.session_jwt;
@@ -21,11 +21,11 @@ exports.handler = async function (event, context) {
 		return {
         	statusCode: 200,
         	body: JSON.stringify(response),
-        	headers: jwt == null ? { 
+        	headers: cookie != "yes" || jwt == null ? { 
         		"Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app"
         	} : { 
         		"Access-Control-Allow-Origin" : "https://embodied-astrology.netlify.app",
-        		"Set-Cookie": `session_jwt=${jwt};SameSite=Strict;secure;HttpOnly`
+        		"Set-Cookie": `session_jwt=${jwt};SameSite=Strict;Max-Age=2592000;secure;HttpOnly`
         	}
       	}
 	}

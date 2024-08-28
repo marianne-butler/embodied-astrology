@@ -33,7 +33,7 @@
       return (value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/));
     }
 
-    function validateUserInput() {
+    function validateNatalfields() {
       const name = document.querySelector('[data-id="NAME').value;
       const place1 = document.querySelector('[data-id="COUNTRY"]').value;
       const place2 = document.querySelector('[data-id="REGION"]').value;
@@ -54,16 +54,16 @@
         case "MAGIC":
           email = document.querySelector('input[data-id="EMAIL"]').value;
           if (validateEmail(email)) {
-            requestMagic();
+            magic();
             setStatus("LOADING");
           }
           else setStatus("INVALID_EMAIL");
           break;
 
         case "NATAL":
-          const params = validateUserInput();
-          if (params != null) {
-            completeSignup(params);
+          const snapshot_params = validateNatalfields();
+          if (snapshot_params != null) {
+            astrology(snapshot_params);
             setStatus("LOADING");
           }
           else setStatus("INVALID_DETAILS");
@@ -74,7 +74,8 @@
         }
     });
 
-    async function requestMagic() {
+
+    async function magic() {
       try {
             fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=MAGIC&email=${email}`)
               .then((res) => res.json()
@@ -86,46 +87,25 @@
         }
     }
 
-    async function completeSignup(snapshot_params) {
+    async function astrology(snapshot_params) {
       try {
         fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=CHART&user_id=${user_id}&${snapshot_params}`)
-        .then((res) => res.json().then(handleResponse));
+        .then((res) => res.json().then(handleresponse));
       } catch(err) {
         setStatus("ERROR", err);
       }
     }
 
-    async function validateSession() {
-      try {
-        fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=AUTH`)
-        .then((res) => res.json().then(handleResponse));
-      } catch(error) {
-        handleResponse(err);
-      }
-    }
-
-    async function validateMagic() {
-      try {
-       fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=LOGIN&token=${token}&stytch_token_type=${stytch_token_type}`)
-       .then((res) => res.json().then(handleResponse));
-      } catch(error) {
-        handleResponse(err);
-      }
-    }
-
-    function handleResponse(resp) {
+    function handleresponse(resp) {
       const {user, error_type} = resp;
 
       if (error_type != null) setStatus("MAGIC", {error: error_type});
       else {
-        // we have a user either from a saved sessionjwt, or from a magic link
         user_id = user.user_id;
 
-        // users need to complete signup - this will include STRIPE signup
-        // const {natal} = user.trusted_metadata;
-        // if (natal == null) setStatus("ASTROLOGY", user);
-        // else setStatus("PROFILE", user);
-        setStatus("WAITING_LIST_OK", user);
+        const {natal} = user.trusted_metadata;
+        if (natal == null) setStatus("ASTROLOGY", user);
+        else setStatus("PROFILE", user);
       }
     }
 
@@ -151,18 +131,6 @@
             `;
             break;
         
-        case "MAGIC_WAITING_LIST":
-            message.innerText = "Get on the Waiting List!";
-            main.innerHTML = `
-              <label>
-                <span>Enter your email address to be notified when signup opens</span>
-                <input data-id="EMAIL" type="email" placeholder="email address" />
-              </label>
-              <button data-action="MAGIC">Get on the List</button>
-              <small></small>
-            `;
-            break;
-        
         case "INVALID_EMAIL":
            main.querySelector('small').innerText = "Please enter a valid email address :)";
            break;
@@ -176,8 +144,7 @@
             break;
 
         case "EMAIL":
-          message.innerText = `Please verify your email address via the link we have just sent to ${email}.`;
-          // message.innerText = `We've sent a magic link to ${email}`;
+          message.innerText = `We've sent a magic link to ${email}`;
           main.innerHTML = "";
           break;
 
@@ -275,15 +242,9 @@
             <small></small>
           `;
           break;
-
         case "PROFILE":
           message.innerText = `Hi ${name.first_name}, here's your chart!`;
           main.innerHTML = data.trusted_metadata.natal;
-          break;
-
-        case "WAITING_LIST_OK":
-          message.innerText = `Thanks for confirming!`;
-          main.innerHTML = "<h3>You will receive an email when signup opens</h3>";
           break;
 
         default: 
@@ -294,10 +255,17 @@
 
     setStatus("AUTH");
 
-    // if (token == null || stytch_token_type == null) validateSession(); // not saving cookies yet so this will never work
-    
-    if (token == null || stytch_token_type == null) setStatus("MAGIC_WAITING_LIST");
-    else validatMagic();
-
+    if (token == null || stytch_token_type == null) {
+        try {
+          fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=AUTH`)
+          .then((res) => res.json().then(handleresponse));
+        } catch(error) {
+          handleresponse(err);
+        }
+    }
+    else {
+      fetch(`https://embodied-astrology.netlify.app/.netlify/functions/api?action=LOGIN&token=${token}&stytch_token_type=${stytch_token_type}`)
+      .then((res) => res.json().then(handleresponse));
+    }
   </script>
 </html>
