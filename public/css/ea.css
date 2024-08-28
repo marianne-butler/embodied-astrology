@@ -179,6 +179,10 @@ main button  {
   border-radius: 5px;
 }
 
+main p {
+  line-height: 1.6;
+}
+
 main label input {
   max-width: 230px;
   margin-top: 1rem;
