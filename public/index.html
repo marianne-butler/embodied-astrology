@@ -152,18 +152,6 @@
             `;
             break;
         
-        case "MAGIC_WAITING_LIST":
-            message.innerText = "Get on the Waiting List!";
-            main.innerHTML = `
-              <label>
-                <span>Enter your email address to be notified when signup opens</span>
-                <input data-id="EMAIL" type="email" placeholder="email address" />
-              </label>
-              <button data-action="MAGIC">Get on the List</button>
-              <small></small>
-            `;
-            break;
-        
         case "INVALID_EMAIL":
            main.querySelector('small').innerText = "Please enter a valid email address :)";
            break;
@@ -177,9 +165,9 @@
             break;
 
         case "EMAIL":
-          message.innerText = `Please verify your email address via the link we have just sent to ${email}.`;
+          message.innerText = `We've sent an email validation to verify your email address via the link we have just sent to ${email}.`;
           // message.innerText = `We've sent a magic link to ${email}`;
-          main.innerHTML = "";
+          // main.innerHTML = "";
           break;
 
         case "ERROR":
@@ -282,6 +270,18 @@
           main.innerHTML = data.trusted_metadata.natal;
           break;
 
+        case "MAGIC_WAITING_LIST":
+            message.innerText = "Get on the Waiting List!";
+            main.innerHTML = `
+              <label>
+                <span>Enter your email address to be notified when signup opens</span>
+                <input data-id="EMAIL" type="email" placeholder="email address" />
+              </label>
+              <button data-action="MAGIC">Get on the List</button>
+              <small></small>
+            `;
+            break;
+
         case "WAITING_LIST_OK":
           message.innerText = `Thanks for confirming!`;
           main.innerHTML = "<h3>You will receive an email when signup opens</h3>";
@@ -298,7 +298,7 @@
     if (token == null || stytch_token_type == null) setStatus("MAGIC_WAITING_LIST");
     else {
       setStatus("AUTH");
-      validatMagic();
+      validateMagic();
     }
 
   </script>

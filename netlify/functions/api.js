@@ -82,10 +82,23 @@ exports.handler = async function (event, context) {
 				}
 				break;
 			case "MAGIC":
-				await client.magicLinks.email.loginOrCreate({email: email})
-					.then(resp => response = resp)
-				  	.catch(err => error = err);
-				return error == null ? composeResponse() : composeError();
+				await client.users.search({
+	    			limit: 1,
+	    			query: {
+	    				operands: [
+	    				{filter_name: "email_address", filter_value: email}]}})
+				    .then(resp => response = resp)
+					.catch(err => error = err);
+
+				if (error == null) composeResponse();
+
+				else {
+					await client.magicLinks.email.loginOrCreate({email: email})
+						.then(resp => response = resp)
+					  	.catch(err => error = err);
+					return error == null ? composeResponse() : composeError();
+				}
+				
 				break;
 			case "LOGIN":
 				const {token, stytch_token_type} = event.queryStringParameters;
