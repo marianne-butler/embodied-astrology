@@ -90,7 +90,10 @@ exports.handler = async function (event, context) {
 				    .then(resp => response = resp)
 					.catch(err => error = err);
 
-				if (error == null) composeResponse();
+				if (resp != null) {
+					console.log(response);
+					composeResponse();
+				}
 
 				else {
 					await client.magicLinks.email.loginOrCreate({email: email})
