@@ -172,11 +172,12 @@ main button  {
   background: white;
   width: 230px;
   border-radius: 5px;
+  margin-top: 1rem;
 }
 
 main button {
   background: var(--content);
   color: white;
   width: 160px;
-
+  cursor: pointer;
 }
