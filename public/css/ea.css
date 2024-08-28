@@ -171,11 +171,13 @@ main button  {
   border: 1px solid;
   padding: 1rem;
   background: white;
-  width: 200px;
+  width: 230px;
   border-radius: 5px;
 }
 
 main button {
   background: var(--content);
   color: white;
+  width: 160px;
+
 }
