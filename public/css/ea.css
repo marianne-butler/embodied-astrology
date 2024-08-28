@@ -127,7 +127,7 @@ header h1 {
 header h2 {
   display: flex;
   flex-direction: column;
-  font-size: 1.36rem;
+  font-size: 2rem;
   position: relative;
   transform: scale(0.6);
   transform-origin: center top;
